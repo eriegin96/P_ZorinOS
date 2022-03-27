@@ -1,0 +1,63 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+	--dark-blue: #bde7ff;
+	--dark-blue-bg: #182429;
+	--dark-blue-item: #101c21;
+	--dark-green: #bdf3de;
+	--dark-green-bg: #182421;
+	--dark-green-item: #101c18;
+	--dark-orange: #ffcbb5;
+	--dark-orange-bg: #211c18;
+	--dark-orange-item: #181410;
+	--dark-red: #ffb6b5;
+	--dark-red-bg: #211818;
+	--dark-red-item: #181410;
+	--dark-purple: #dec7f7;
+	--dark-purple-bg: #211c21;
+	--dark-purple-item: #181818;
+
+	--blue-dark: #009eef;
+	--blue-light: #18c3ff;
+	--green-dark: #18c384;
+	--green-light: #29df8c;
+	--orange-dark: #ff6d31;
+	--orange-light: #ff7d5a;
+	--red-dark: #ff2829;
+	--red-light: #ff5563;
+	--purple-dark: #8c4de7;
+	--purple-light: #9c71e7;
+	--gradient-blue: linear-gradient(to right, var(--blue-dark), var(--blue-light));
+	--gradient-green: linear-gradient(to right, var(--green-dark), var(--green-light));
+	--gradient-orange: linear-gradient(to right, var(--orange-dark), var(--orange-light));
+	--gradient-red: linear-gradient(to right, var(--red-dark), var(--red-light));
+	--gradient-purple: linear-gradient(to right, var(--purple-dark), var(--purple-light));
+}
+
+body {
+	margin: 0;
+	font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
+		'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	/* cursor: url('./assets/cursors/capitaine/default.cur'), default; */
+}
+
+code {
+	font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+}
+
+.Center {
+	@apply flex justify-center items-center;
+}
+
+.Transition {
+	@apply duration-300 ease-out;
+}
+
+/* input,
+textarea {
+	outline: none;
+} */
