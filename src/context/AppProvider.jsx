@@ -7,11 +7,11 @@ export default function AppProvider({ children }) {
 	const [isLocked, setIsLocked] = useState(true);
 
 	// Appearance
-	// const [layout, setLayout] = useState({ window: true, grid: false, ubuntu: false });
+	const [layout, setLayout] = useState({ window: true, grid: false, ubuntu: false });
 	const [bg, setBg] = useState(BACKGROUND_LIST[0]);
 	const [darkTheme, setDarkTheme] = useState(false);
 	useEffect(() => {
-		document.documentElement.classList.toggle('dark');
+		// document.documentElement.classList.toggle('dark');
 	}, [darkTheme]);
 
 	// blue, green, orange, red, purple, gray
@@ -23,10 +23,28 @@ export default function AppProvider({ children }) {
 	});
 
 	// Setting
-	// const [brightness, setBrightness] = useState(50);
-	// const [volume, setVolume] = useState(50);
+	const [brightness, setBrightness] = useState(50);
+	const [volume, setVolume] = useState(50);
+	const [currentTime, setCurrentTime] = useState(Date.now());
+	useEffect(() => {
+		const interval = setInterval(() => {
+			setCurrentTime(Date.now());
+		}, 1000);
 
-	const value = { isLocked, setIsLocked, bg, setBg, darkTheme, setDarkTheme, color, setColor };
+		return () => clearInterval(interval);
+	}, [currentTime]);
+
+	const value = {
+		isLocked,
+		setIsLocked,
+		bg,
+		setBg,
+		darkTheme,
+		setDarkTheme,
+		color,
+		setColor,
+		currentTime,
+	};
 
 	return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
 }

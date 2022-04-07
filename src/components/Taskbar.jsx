@@ -1,5 +1,4 @@
 import React from 'react';
-import { wifiGoodIcon } from '../assets/icons';
 
 export default function Taskbar() {
 	return (

@@ -1,5 +1,6 @@
-export * from './Button';
-export * from './Input';
+export { default as Button } from './common/Button';
+export { default as Battery } from './common/Battery';
+export * from './common/Input';
 
 export { default as Taskbar } from './Taskbar';
 export { default as Sidebar } from './Sidebar';

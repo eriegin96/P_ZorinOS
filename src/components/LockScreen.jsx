@@ -1,23 +1,43 @@
+import { format } from 'date-fns';
 import React, { useState, useContext, useEffect } from 'react';
 import { FaUser } from 'react-icons/fa';
 import { HiArrowLeft } from 'react-icons/hi';
 import { ImSpinner2 } from 'react-icons/im';
+import logo from '../assets/images/logo.svg';
 import { AppContext } from '../context/AppProvider';
-import Button from './Button';
-import Input from './Input';
+import Button from './common/Button';
+import Input from './common/Input';
 import StatusBar from './StatusBar';
 
 export default function LockScreen() {
-	const { setIsLocked } = useContext(AppContext);
+	const { setIsLocked, currentTime } = useContext(AppContext);
 	const [isLogging, setIsLogging] = useState(false);
 	const [isValidated, setIsValidated] = useState(null);
 	const [isValidating, setIsValidating] = useState(false);
 
 	useEffect(() => {
-		document.addEventListener('keydown', () => setIsLogging(true));
+		const handleKeyDown = (e) => {
+			e.preventDefault();
+			const keyList = [
+				'Alt',
+				'Control',
+				'Shift',
+				'Fn',
+				'Super',
+				'CapsLock',
+				'NumLock',
+				'ScrollLock',
+				'Meta',
+				'OS',
+			];
+			if (keyList.includes(e.key)) return;
+			setIsLogging(true);
+		};
+
+		document.addEventListener('keydown', handleKeyDown);
 
 		return () => {
-			document.removeEventListener('keydown', () => setIsLogging(true));
+			document.removeEventListener('keydown', handleKeyDown);
 		};
 	}, []);
 
@@ -43,7 +63,6 @@ export default function LockScreen() {
 		<div
 			id='lock'
 			className='w-full relative h-screen backdrop-blur-xl bg-transparent-b-50 text-white'
-			// tabIndex={0}
 			onClick={() => setIsLogging(true)}
 		>
 			<div className='absolute right-0 top-0'>
@@ -89,13 +108,13 @@ export default function LockScreen() {
 					</>
 				) : (
 					<>
-						<div className='text-6xl'>21:55</div>
-						<div className='mt-6 mb-10 text-xl'>Saturday, Mar 26</div>
+						<div className='text-6xl'>{format(currentTime, 'HH:mm')}</div>
+						<div className='mt-6 mb-10 text-xl'>{format(Date.now(), 'EEEE, d MMM yyyy')}</div>
 						<div className='text-sm text-gray-400'>Click or press a key to unlock</div>
 					</>
 				)}
 
-				<div className='absolute bottom-12 tracking-[10px] text-4xl uppercase font-logo'>Zorin</div>
+				<img src={logo} alt='logo' className='absolute bottom-12' />
 			</div>
 		</div>
 	);
