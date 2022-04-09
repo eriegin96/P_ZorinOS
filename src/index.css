@@ -19,6 +19,7 @@
 	--dark-purple-bg: #211c21;
 	--dark-purple-item: #181818;
 
+	--white-main: #f7f7f7;
 	--blue-dark: #009eef;
 	--blue-light: #18c3ff;
 	--green-dark: #18c384;
@@ -47,6 +48,10 @@ body {
 
 code {
 	font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+}
+
+svg {
+	display: inline-block;
 }
 
 .Center {

@@ -1,3 +1,4 @@
+import React, { useContext } from 'react';
 import {
 	MdBattery20,
 	MdBattery30,
@@ -14,23 +15,34 @@ import {
 	MdBatteryCharging90,
 	MdBatteryChargingFull,
 } from 'react-icons/md';
+import { AppContext } from '../../context/AppProvider';
 
-export default function Battery({ batteryLevel, isCharging }) {
-	if (isCharging) {
-		if (batteryLevel >= 90) return <MdBatteryChargingFull />;
-		if (batteryLevel >= 80 && batteryLevel < 90) return <MdBatteryCharging90 />;
-		if (batteryLevel >= 60 && batteryLevel < 80) return <MdBatteryCharging80 />;
-		if (batteryLevel >= 50 && batteryLevel < 60) return <MdBatteryCharging60 />;
-		if (batteryLevel >= 30 && batteryLevel < 50) return <MdBatteryCharging50 />;
-		if (batteryLevel >= 20 && batteryLevel < 30) return <MdBatteryCharging30 />;
-		if (batteryLevel >= 0 && batteryLevel < 20) return <MdBatteryCharging20 />;
-	} else {
-		if (batteryLevel >= 90) return <MdBatteryFull />;
-		if (batteryLevel >= 80 && batteryLevel < 90) return <MdBattery90 />;
-		if (batteryLevel >= 60 && batteryLevel < 80) return <MdBattery80 />;
-		if (batteryLevel >= 50 && batteryLevel < 60) return <MdBattery60 />;
-		if (batteryLevel >= 30 && batteryLevel < 50) return <MdBattery50 />;
-		if (batteryLevel >= 20 && batteryLevel < 30) return <MdBattery30 />;
-		if (batteryLevel >= 0 && batteryLevel < 20) return <MdBattery20 />;
-	}
+export default function Battery({ className }) {
+	const { batteryLevel, isCharging } = useContext(AppContext);
+
+	return (
+		<>
+			{isCharging ? (
+				<span className={className}>
+					{batteryLevel >= 90 && <MdBatteryChargingFull />}
+					{batteryLevel >= 80 && batteryLevel < 90 && <MdBatteryCharging90 />}
+					{batteryLevel >= 60 && batteryLevel < 80 && <MdBatteryCharging80 />}
+					{batteryLevel >= 50 && batteryLevel < 60 && <MdBatteryCharging60 />}
+					{batteryLevel >= 30 && batteryLevel < 50 && <MdBatteryCharging50 />}
+					{batteryLevel >= 20 && batteryLevel < 30 && <MdBatteryCharging30 />}
+					{batteryLevel >= 0 && batteryLevel < 20 && <MdBatteryCharging20 />}
+				</span>
+			) : (
+				<span className={className}>
+					{batteryLevel >= 90 && <MdBatteryFull />}
+					{batteryLevel >= 80 && batteryLevel < 90 && <MdBattery90 />}
+					{batteryLevel >= 60 && batteryLevel < 80 && <MdBattery80 />}
+					{batteryLevel >= 50 && batteryLevel < 60 && <MdBattery60 />}
+					{batteryLevel >= 30 && batteryLevel < 50 && <MdBattery50 />}
+					{batteryLevel >= 20 && batteryLevel < 30 && <MdBattery30 />}
+					{batteryLevel >= 0 && batteryLevel < 20 && <MdBattery20 />}
+				</span>
+			)}
+		</>
+	);
 }

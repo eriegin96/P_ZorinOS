@@ -22,6 +22,7 @@ module.exports = {
 				'gradient-purple': 'var(--gradient-purple)',
 			},
 			colors: {
+				'white-main': 'var(--white-main)',
 				'blue-dark': 'var(--blue-dark)',
 				'blue-light': 'var(--blue-light)',
 				'green-dark': 'var(--green-dark)',
@@ -33,6 +34,7 @@ module.exports = {
 				'purple-dark': 'var(--purple-dark)',
 				'purple-light': 'var(--purple-light)',
 				'transparent-w-10': 'rgba(255, 255, 255, 0.1)',
+				'transparent-w-20': 'rgba(255, 255, 255, 0.2)',
 				'transparent-w-30': 'rgba(255, 255, 255, 0.3)',
 				'transparent-w-50': 'rgba(255, 255, 255, 0.5)',
 				'transparent-w-70': 'rgba(255, 255, 255, 0.7)',

@@ -17,7 +17,6 @@ export default function LockScreen() {
 
 	useEffect(() => {
 		const handleKeyDown = (e) => {
-			e.preventDefault();
 			const keyList = [
 				'Alt',
 				'Control',

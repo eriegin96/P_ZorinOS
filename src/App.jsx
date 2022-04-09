@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import { AppContext } from './context/AppProvider';
-import { LockScreen, Sidebar, Taskbar, Window } from './components';
+import { LockScreen, Sidebar, Taskbar, Window, Modal, DraggableModal } from './components';
 
 export default function App() {
 	const { isLocked, bg } = useContext(AppContext);
@@ -12,7 +12,7 @@ export default function App() {
 				<img src={bg} alt='background' className='w-full h-full' />
 			</div>
 
-			{isLocked ? (
+			{!isLocked ? (
 				<LockScreen />
 			) : (
 				<>
@@ -21,6 +21,9 @@ export default function App() {
 					<Window />
 				</>
 			)}
+
+			<Modal />
+			<DraggableModal />
 		</div>
 	);
 }
