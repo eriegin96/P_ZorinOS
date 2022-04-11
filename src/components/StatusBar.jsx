@@ -5,15 +5,15 @@ import { IoCaretDown } from 'react-icons/io5';
 import { AppContext } from '../context/AppProvider';
 import Battery from './common/Battery';
 
-export default function StatusBar() {
+export default function StatusBar({ className }) {
 	const { darkTheme, setDarkTheme, modalType, setModalType } = useContext(AppContext);
 
 	return (
 		<>
 			<div
-				className={`text-white dark:text-black hover:bg-transparent-w-10 rounded-lg mt-1 mr-1 px-2 py-1 cursor-pointer Center ${
+				className={`text-white dark:text-black hover:bg-transparent-w-10 rounded-lg px-2 py-1 cursor-pointer Center ${
 					modalType === 'status' ? 'bg-transparent-w-20' : ''
-				}`}
+				} ${className}`}
 				onClick={(e) => {
 					e.stopPropagation();
 					setDarkTheme(!darkTheme);

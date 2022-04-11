@@ -14,8 +14,9 @@ export default function AppProvider({ children }) {
 	const [draggableModalType, setDraggableModalType] = useState(initialDraggableModalType);
 
 	// Appearance
-	const [layout, setLayout] = useState({ window: true, grid: false, ubuntu: false });
-	const [bg, setBg] = useState(BACKGROUND_LIST[0]);
+	const initialLayout = { window: false, grid: false, ubuntu: false };
+	const [layout, setLayout] = useState({ ...initialLayout, window: true });
+	const [bg, setBg] = useState(BACKGROUND_LIST[0].day);
 	const [darkTheme, setDarkTheme] = useState(false);
 	useEffect(() => {
 		// document.documentElement.classList.toggle('dark');
@@ -75,6 +76,9 @@ export default function AppProvider({ children }) {
 		setDraggableModalType,
 		isLocked,
 		setIsLocked,
+		initialLayout,
+		layout,
+		setLayout,
 		bg,
 		setBg,
 		darkTheme,

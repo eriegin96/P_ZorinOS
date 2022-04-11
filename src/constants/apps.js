@@ -1,0 +1,30 @@
+import {
+	audioImg,
+	calculatorImg,
+	chromeImg,
+	notesImg,
+	settingsImg,
+	terminalImg,
+	textEditorImg,
+	trashEmptyImg,
+	videoImg,
+	vscodeImg,
+	youtubeImg,
+	zorinImg,
+} from '../assets/images/apps';
+
+export const APP_LIST = [
+	{ name: 'file_explorer', icon: '' },
+	{ name: 'audio', icon: audioImg },
+	{ name: 'calculator', icon: calculatorImg },
+	{ name: 'chrome', icon: chromeImg },
+	{ name: 'notes', icon: notesImg },
+	{ name: 'settings', icon: settingsImg },
+	{ name: 'terminal', icon: terminalImg },
+	{ name: 'notepad', icon: textEditorImg },
+	{ name: 'trash', icon: trashEmptyImg },
+	{ name: 'video', icon: videoImg },
+	{ name: 'vscode', icon: vscodeImg },
+	{ name: 'youtube', icon: youtubeImg },
+	{ name: 'zorin', icon: zorinImg },
+];

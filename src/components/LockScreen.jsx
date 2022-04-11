@@ -65,7 +65,7 @@ export default function LockScreen() {
 			onClick={() => setIsLogging(true)}
 		>
 			<div className='absolute right-0 top-0'>
-				<StatusBar />
+				<StatusBar className='mt-1' />
 			</div>
 
 			<div className='w-[300px] h-full relative mx-auto text-center flex-col font-light Center'>

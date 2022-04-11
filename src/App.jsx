@@ -3,7 +3,7 @@ import { AppContext } from './context/AppProvider';
 import { LockScreen, Sidebar, Taskbar, Window, Modal, DraggableModal } from './components';
 
 export default function App() {
-	const { isLocked, bg } = useContext(AppContext);
+	const { isLocked, bg, layout } = useContext(AppContext);
 
 	return (
 		<div className='min-h-screen w-full relative cursor-default select-none'>
@@ -15,11 +15,11 @@ export default function App() {
 			{!isLocked ? (
 				<LockScreen />
 			) : (
-				<>
+				<div className={`absolute inset-0 flex ${layout.ubuntu ? 'flex-col' : 'flex-col-reverse'}`}>
 					<Taskbar />
 					{/* <Sidebar /> */}
 					<Window />
-				</>
+				</div>
 			)}
 
 			<Modal />
