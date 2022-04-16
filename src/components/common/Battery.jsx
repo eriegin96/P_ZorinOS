@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useEffect } from 'react';
 import {
 	MdBattery20,
 	MdBattery30,
@@ -15,10 +15,43 @@ import {
 	MdBatteryCharging90,
 	MdBatteryChargingFull,
 } from 'react-icons/md';
-import { AppContext } from '../../context/AppProvider';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+	changeBatteryLevel,
+	selectBatteryLevel,
+	selectIsCharging,
+	toggleCharging,
+} from '../../app/settingsSlice';
 
 export default function Battery({ className }) {
-	const { batteryLevel, isCharging } = useContext(AppContext);
+	const batteryLevel = useSelector(selectBatteryLevel);
+	const isCharging = useSelector(selectIsCharging);
+	const dispatch = useDispatch();
+
+	useEffect(() => {
+		navigator.getBattery &&
+			navigator.getBattery().then((battery) => {
+				const updateChargeInfo = () => {
+					battery.charging ? dispatch(toggleCharging(true)) : dispatch(toggleCharging(false));
+				};
+				const updateLevelInfo = () => {
+					dispatch(changeBatteryLevel(Math.round(battery.level * 100)));
+				};
+				const updateAllBatteryInfo = () => {
+					updateChargeInfo();
+					updateLevelInfo();
+				};
+
+				battery.addEventListener('chargingchange', () => {
+					updateChargeInfo();
+				});
+				battery.addEventListener('levelchange', () => {
+					updateLevelInfo();
+				});
+
+				updateAllBatteryInfo();
+			});
+	}, []);
 
 	return (
 		<>

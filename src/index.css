@@ -62,6 +62,10 @@ svg {
 	@apply duration-300 ease-out;
 }
 
+.TaskbarButton {
+	@apply p-1.5 hover:bg-transparent-w-10;
+}
+
 /* input,
 textarea {
 	outline: none;

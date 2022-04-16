@@ -1,37 +1,72 @@
-import React, { useContext } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { selectCount } from './taskbarSlice';
-import { AppContext } from '../context/AppProvider';
+import React from 'react';
+import { BiWindows } from 'react-icons/bi';
+import { CgMenuGridO } from 'react-icons/cg';
+import { useSelector } from 'react-redux';
+import { selectLayout } from '../app/settingsSlice';
+import { StartMenuIcon } from '../assets/icons/Svg';
+import { TaskbarButton } from './common/Button';
 import StatusBar from './StatusBar';
 
 export default function Taskbar() {
-	const { layout } = useContext(AppContext);
-	const count = useSelector(selectCount);
-	const dispatch = useDispatch();
+	const layout = useSelector(selectLayout);
 
 	return (
-		<div className='w-full flex justify-between items-center shadow-md text-white bg-black text-sm'>
-			{layout.window && (
+		<div
+			className={`w-full flex justify-between items-center shadow-md text-white bg-black text-sm ${
+				layout === 'ubuntu' ? '' : 'h-12'
+			}`}
+		>
+			{layout === 'window' && (
 				<>
-					<div className='h-12 px-3 py-1'>Menu</div>
-					<div className='px-2 py-1'>Apps</div>
-					<StatusBar className='mr-1' />
+					<div className='flex gap-1'>
+						<TaskbarButton>
+							<StartMenuIcon className='h-6 w-6' />
+						</TaskbarButton>
+						<TaskbarButton>
+							<BiWindows className='h-6 w-6' />
+						</TaskbarButton>
+						<TaskbarButton>App1</TaskbarButton>
+						<TaskbarButton>App2</TaskbarButton>
+						<TaskbarButton>App3</TaskbarButton>
+					</div>
+					<StatusBar fromBottom fromRight position='mr-1' />
 				</>
 			)}
 
-			{layout.grid && (
+			{layout === 'grid' && (
 				<>
-					<div className='h-12 px-3 py-1'>Menu</div>
-					<div className='px-2 py-1'>Apps</div>
-					<StatusBar className='mr-1' />
+					<div className='flex gap-1'>
+						<TaskbarButton>
+							<CgMenuGridO className='h-6 w-6' />
+						</TaskbarButton>
+						<TaskbarButton>
+							<BiWindows className='h-6 w-6' />
+						</TaskbarButton>
+					</div>
+					<div className='flex gap-1'>
+						<TaskbarButton>App1</TaskbarButton>
+						<TaskbarButton>App2</TaskbarButton>
+						<TaskbarButton>App3</TaskbarButton>
+					</div>
+					<StatusBar fromBottom fromRight position='mr-1' />
 				</>
 			)}
 
-			{layout.ubuntu && (
+			{layout === 'ubuntu' && (
 				<>
-					<div className='px-3 py-1'>Activities</div>
+					<div className='flex gap-1'>
+						<TaskbarButton>
+							<StartMenuIcon className='h-6 w-6' />
+						</TaskbarButton>
+						<TaskbarButton>
+							<BiWindows className='h-6 w-6' />
+						</TaskbarButton>
+						<TaskbarButton>App1</TaskbarButton>
+						<TaskbarButton>App2</TaskbarButton>
+						<TaskbarButton>App3</TaskbarButton>
+					</div>
 					<div className='px-2 py-1'>Sat Mar 26 9:37AM</div>
-					<StatusBar className='mr-1' />
+					<StatusBar fromRight position='mr-1' />
 				</>
 			)}
 		</div>

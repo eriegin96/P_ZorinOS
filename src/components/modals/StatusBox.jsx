@@ -9,11 +9,13 @@ import {
 	calculateBatteryRemainingTime,
 	calculateBatteryToFullTime,
 } from '../../utils/calculateTime';
+import { useSelector } from 'react-redux';
+import { selectBatteryLevel, selectIsCharging } from '../../app/settingsSlice';
 
 function StatusItem({ open, disabled, onClick, children }) {
 	return (
 		<div
-			className={`py-1 px-4 text-sm flex items-center flex-wrap hover:bg-gray-200 ${
+			className={`py-1 px-4 text-sm flex items-center gap-2 hover:bg-gray-200 ${
 				disabled ? 'text-gray-400 hover:bg-inherit' : ''
 			} ${open ? 'bg-gradient-blue hover:bg-gradient-blue text-white' : ''}`}
 			onClick={onClick}
@@ -28,15 +30,19 @@ function SubItem({ children }) {
 }
 
 export default function StatusBox() {
-	const { isLocked, batteryLevel, isCharging } = useContext(AppContext);
+	const { isLocked } = useContext(AppContext);
+	const batteryLevel = useSelector(selectBatteryLevel);
+	const isCharging = useSelector(selectIsCharging);
 	const initialShowSubItem = { connection: false, battery: false, power: false };
 	const [showSubItem, setShowSubItem] = useState(initialShowSubItem);
 
 	return (
-		<div className='absolute top-9 right-1 py-2 bg-white-main rounded-lg'>
+		<div className='py-2 bg-white-main rounded-lg text-black'>
 			<StatusItem>
-				<IoMdVolumeHigh className='mr-2' />
-				<Sound />
+				<IoMdVolumeHigh />
+				<div>
+					<Sound />
+				</div>
 			</StatusItem>
 
 			<div className='mx-4 my-2 border-b' />
@@ -48,9 +54,9 @@ export default function StatusBox() {
 					setShowSubItem({ ...initialShowSubItem, connection: !showSubItem.connection })
 				}
 			>
-				<VscDebugDisconnect className='mr-2' />
+				<VscDebugDisconnect />
 				<span className='grow text-xs'>Wired Connected</span>
-				<span className='ml-2 Center'>
+				<span className='Center'>
 					{!isLocked && (showSubItem.connection ? <IoCaretDown /> : <IoCaretForward />)}
 				</span>
 			</StatusItem>
@@ -65,7 +71,7 @@ export default function StatusBox() {
 				disabled={isLocked}
 				onClick={() => setShowSubItem({ ...initialShowSubItem, battery: !showSubItem.battery })}
 			>
-				<Battery className='mr-2 Center' />
+				<Battery className='Center' />
 				{isCharging ? (
 					<span className='grow text-xs'>
 						{calculateBatteryToFullTime(batteryLevel)} Unti Full ({batteryLevel}%)
@@ -75,7 +81,7 @@ export default function StatusBox() {
 						{calculateBatteryRemainingTime(batteryLevel)} Remaining ({batteryLevel}%)
 					</span>
 				)}
-				<span className='ml-2 Center'>
+				<span className='Center'>
 					{!isLocked && (showSubItem.battery ? <IoCaretDown /> : <IoCaretForward />)}
 				</span>
 			</StatusItem>
@@ -90,11 +96,11 @@ export default function StatusBox() {
 			{!isLocked && (
 				<>
 					<StatusItem>
-						<MdSettings className='mr-2' />
+						<MdSettings />
 						<span className='grow text-xs'>Settings</span>
 					</StatusItem>
 					<StatusItem>
-						<MdLock className='mr-2' />
+						<MdLock />
 						<span className='grow text-xs'>Lock</span>
 					</StatusItem>
 				</>
@@ -104,11 +110,9 @@ export default function StatusBox() {
 				open={showSubItem.power}
 				onClick={() => setShowSubItem({ ...initialShowSubItem, power: !showSubItem.power })}
 			>
-				<MdPowerSettingsNew className='mr-2' />
+				<MdPowerSettingsNew />
 				<span className='grow text-xs'>Power Off / Log Out</span>
-				<span className='ml-2 Center'>
-					{showSubItem.power ? <IoCaretDown /> : <IoCaretForward />}
-				</span>
+				<span className='Center'>{showSubItem.power ? <IoCaretDown /> : <IoCaretForward />}</span>
 			</StatusItem>
 			{showSubItem.power && (
 				<div className='basis-full bg-white text-black text-xs'>

@@ -1,6 +1,7 @@
-export { default as Button } from './common/Button';
 export { default as Battery } from './common/Battery';
 export { default as Sound } from './common/Sound';
+export { default as Menu } from './common/Menu';
+export * from './common/Button';
 export * from './common/Input';
 
 export { default as Taskbar } from './Taskbar';

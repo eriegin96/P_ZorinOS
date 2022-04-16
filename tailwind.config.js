@@ -43,6 +43,9 @@ module.exports = {
 				'transparent-b-50': 'rgba(0, 0, 0, 0.5)',
 				'transparent-b-70': 'rgba(0, 0, 0, 0.7)',
 			},
+			dropShadow: {
+				'start-menu': '0 35px 35px rgba(255, 255, 255, 0.5)',
+			},
 		},
 	},
 	plugins: [],

@@ -1,21 +1,20 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, isAsyncThunkAction } from '@reduxjs/toolkit';
 import { BACKGROUND_LIST } from '../constants';
+
+const mainColor = 'blue';
 
 export const settingsSlice = createSlice({
 	name: 'settings',
 	initialState: {
-		layout: {
-			window: true,
-			grid: false,
-			ubuntu: false,
-		},
+		layout: 'window',
 		background: BACKGROUND_LIST[0].day,
-		mainColor: 'blue',
+		mainColor: mainColor,
+		// blue, green, orange, red, purple, gray
 		colorSet: {
-			text: `text-${initialState.mainColor}-dark`,
-			bg: `bg-${initialState.mainColor}-dark`,
-			border: `border-${initialState.mainColor}-dark`,
-			outline: `outline-${initialState.mainColor}-dark`,
+			text: `text-${mainColor}-dark`,
+			bg: `bg-${mainColor}-dark`,
+			border: `border-${mainColor}-dark`,
+			outline: `outline-${mainColor}-dark`,
 		},
 		brightness: 50,
 		volume: 100,
@@ -23,25 +22,41 @@ export const settingsSlice = createSlice({
 		isCharging: false,
 	},
 	reducers: {
-		increaseBrightness: (state) => {
-			state.brightness += 1;
+		changeLayout: (state, action) => {
+			state.layout = action.payload;
 		},
-		decreaseBrightness: (state) => {
-			state.brightness -= 1;
+		changeMainColor: (state, action) => {
+			state.mainColor = action.payload;
 		},
-		increaseVolume: (state) => {
-			state.volume += 1;
+		changeBrightness: (state, action) => {
+			state.brightness = action.payload;
 		},
-		decreaseVolume: (state) => {
-			state.volume -= 1;
+		changeVolume: (state, action) => {
+			state.volume = action.payload;
 		},
-		toggleCharging: (state) => {
-			state.isCharging = !state.isCharging;
+		changeBatteryLevel: (state, action) => {
+			state.batteryLevel = action.payload;
+		},
+		toggleCharging: (state, action) => {
+			state.isCharging = action.payload;
 		},
 	},
 });
 
+export const selectLayout = (state) => state.settings.layout;
+export const selectBackground = (state) => state.settings.background;
+export const selectColorset = (state) => state.settings.colorSet;
+export const selectBrightness = (state) => state.settings.brightness;
+export const selectVolume = (state) => state.settings.volume;
+export const selectBatteryLevel = (state) => state.settings.batteryLevel;
 export const selectIsCharging = (state) => state.settings.isCharging;
-export const { increment, decrement, incrementByAmount } = settingsSlice.actions;
+export const {
+	changeLayout,
+	changeMainColor,
+	changeBrightness,
+	changeVolume,
+	changeBatteryLevel,
+	toggleCharging,
+} = settingsSlice.actions;
 
 export default settingsSlice.reducer;
