@@ -45,6 +45,7 @@ export const settingsSlice = createSlice({
 
 export const selectLayout = (state) => state.settings.layout;
 export const selectBackground = (state) => state.settings.background;
+export const selectMainColor = (state) => state.settings.mainColor;
 export const selectColorset = (state) => state.settings.colorSet;
 export const selectBrightness = (state) => state.settings.brightness;
 export const selectVolume = (state) => state.settings.volume;

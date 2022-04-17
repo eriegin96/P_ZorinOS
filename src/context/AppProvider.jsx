@@ -1,5 +1,7 @@
 import React, { createContext, useState, useEffect } from 'react';
+import { useLayoutEffect } from 'react';
 import { BACKGROUND_LIST } from '../constants';
+import { changeBackground } from '../utils/changeBackground';
 
 export const AppContext = createContext();
 
@@ -14,13 +16,6 @@ export default function AppProvider({ children }) {
 	};
 	const [draggableModalType, setDraggableModalType] = useState(initialDraggableModalType);
 
-	// Appearance
-	const [bg, setBg] = useState(BACKGROUND_LIST[0].day);
-	const [darkTheme, setDarkTheme] = useState(false);
-	useEffect(() => {
-		// document.documentElement.classList.toggle('dark');
-	}, [darkTheme]);
-
 	// Settings
 	const [currentTime, setCurrentTime] = useState(Date.now());
 	useEffect(() => {
@@ -30,6 +25,18 @@ export default function AppProvider({ children }) {
 
 		return () => clearInterval(interval);
 	}, [currentTime]);
+
+	// Appearance
+	const [bg, setBg] = useState(BACKGROUND_LIST[0].day);
+	useLayoutEffect(() => {
+		const newBg = changeBackground(currentTime);
+		setBg(newBg);
+	}, [currentTime]);
+
+	const [darkTheme, setDarkTheme] = useState(false);
+	useEffect(() => {
+		// document.documentElement.classList.toggle('dark');
+	}, [darkTheme]);
 
 	const value = {
 		modalType,
