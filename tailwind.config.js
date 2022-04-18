@@ -46,6 +46,14 @@ module.exports = {
 			dropShadow: {
 				'start-menu': '0 35px 35px rgba(255, 255, 255, 0.5)',
 			},
+			gridTemplateColumns: {
+				14: 'repeat(14, minmax(0, 1fr))',
+				16: 'repeat(16, minmax(0, 1fr))',
+			},
+			gridTemplateRows: {
+				7: 'repeat(7, minmax(0, 1fr))',
+				8: 'repeat(8, minmax(0, 1fr))',
+			},
 		},
 	},
 	plugins: [],
