@@ -1,24 +1,31 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useDrag, useDrop } from 'react-dnd';
 
 export default function Button({ className = '', children, ...props }) {
 	return (
-		<button className={`rounded-md cursor-default Center Transition ${className}`} {...props}>
+		<button className={`Button ${className}`} {...props}>
 			{children}
 		</button>
 	);
 }
 
-export function WindowIconButton({ id, index, moveIcon, className = '', children, ...props }) {
+export function WindowIconButton({
+	id,
+	index,
+	moveIcon,
+	icon,
+	title,
+	className = '',
+	children,
+	...props
+}) {
 	const ref = useRef(null);
 	const [{ handlerId }, drop] = useDrop({
 		accept: 'icon',
-		collect(monitor) {
-			return {
-				handlerId: monitor.getHandlerId(),
-			};
-		},
-		hover(item, monitor) {
+		collect: (monitor) => ({
+			handlerId: monitor.getHandlerId(),
+		}),
+		hover: (item, monitor) => {
 			if (!ref.current) {
 				return;
 			}
@@ -64,6 +71,11 @@ export function WindowIconButton({ id, index, moveIcon, className = '', children
 		collect: (monitor) => ({
 			isDragging: monitor.isDragging(),
 		}),
+		end: (_, monitor) => {
+			if (monitor.didDrop()) {
+				ref.current.blur();
+			}
+		},
 	});
 
 	drag(drop(ref));
@@ -72,8 +84,9 @@ export function WindowIconButton({ id, index, moveIcon, className = '', children
 		<div className='flex justify-center items-start'>
 			<button
 				ref={ref}
+				type='button'
 				data-handler-id={handlerId}
-				className={`WindowIconButton py-1 px-2 flex flex-col items-center rounded-md cursor-default Transition ${
+				className={`WindowIconButton py-1 px-2 flex flex-col items-center rounded-md cursor-default Transition-colors ${
 					isDragging ? 'opacity-50' : 'opacity-100'
 				} ${className}`}
 				{...props}
@@ -86,8 +99,8 @@ export function WindowIconButton({ id, index, moveIcon, className = '', children
 
 export function TaskbarButton({ className = '', children, ...props }) {
 	return (
-		<Button className={`TaskbarButton ${className}`} {...props}>
+		<button className={`Button TaskbarButton ${className}`} {...props}>
 			{children}
-		</Button>
+		</button>
 	);
 }

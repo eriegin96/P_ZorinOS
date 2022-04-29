@@ -29,7 +29,7 @@ export default function AppProvider({ children }) {
 	// Appearance
 	const [bg, setBg] = useState(BACKGROUND_LIST[0].day);
 	useLayoutEffect(() => {
-		const newBg = changeBackground(currentTime);
+		const newBg = changeBackground(new Date().getHours());
 		setBg(newBg);
 	}, [currentTime]);
 

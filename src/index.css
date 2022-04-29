@@ -58,16 +58,24 @@ svg {
 	@apply flex justify-center items-center;
 }
 
-.Transition {
-	@apply duration-300 ease-out;
+.Transition-colors {
+	@apply transition-colors duration-200;
+}
+
+.Button {
+	@apply rounded-md cursor-default Center Transition-colors;
 }
 
 .WindowIconButton {
-	@apply m-0.5 hover:bg-transparent-w-20 focus:bg-transparent-w-30;
+	@apply hover:bg-transparent-w-20 focus:bg-transparent-w-30;
 }
 
 .TaskbarButton {
 	@apply p-1.5 hover:bg-transparent-w-10;
+}
+
+.text-shadow {
+	text-shadow: 1px 1px 2px #000;
 }
 
 /* input,

@@ -49,6 +49,8 @@ module.exports = {
 			gridTemplateColumns: {
 				14: 'repeat(14, minmax(0, 1fr))',
 				16: 'repeat(16, minmax(0, 1fr))',
+				18: 'repeat(18, minmax(0, 1fr))',
+				20: 'repeat(20, minmax(0, 1fr))',
 			},
 			gridTemplateRows: {
 				7: 'repeat(7, minmax(0, 1fr))',

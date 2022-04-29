@@ -1,6 +1,6 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { AppContext } from './context/AppProvider';
-import { LockScreen, Sidebar, Taskbar, Window, Modal, DraggableModal } from './components';
+import { LockScreen, Sidebar, Taskbar, Window, Modal, DraggableApp } from './components';
 import { useSelector } from 'react-redux';
 import { selectLayout } from './app/settingsSlice';
 
@@ -30,7 +30,7 @@ export default function App() {
 			)}
 
 			<Modal />
-			<DraggableModal />
+			<DraggableApp />
 		</div>
 	);
 }

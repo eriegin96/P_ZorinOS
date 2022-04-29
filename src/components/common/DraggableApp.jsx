@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import Draggable from 'react-draggable';
 import { AppContext } from '../../context/AppProvider';
 
-export default function DraggableModal() {
+export default function DraggableApp() {
 	const {
 		draggableModalType: { app, file },
 	} = useContext(AppContext);

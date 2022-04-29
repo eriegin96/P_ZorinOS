@@ -1,4 +1,4 @@
-import { createSlice, isAsyncThunkAction } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 import { BACKGROUND_LIST } from '../constants';
 
 const mainColor = 'blue';
@@ -20,6 +20,7 @@ export const settingsSlice = createSlice({
 		volume: 100,
 		batteryLevel: 100,
 		isCharging: false,
+		isWindowGrid: false,
 	},
 	reducers: {
 		changeLayout: (state, action) => {
@@ -40,6 +41,9 @@ export const settingsSlice = createSlice({
 		toggleCharging: (state, action) => {
 			state.isCharging = action.payload;
 		},
+		toggleWindowGrid: (state) => {
+			state.isWindowGrid = !state.isWindowGrid;
+		},
 	},
 });
 
@@ -51,6 +55,7 @@ export const selectBrightness = (state) => state.settings.brightness;
 export const selectVolume = (state) => state.settings.volume;
 export const selectBatteryLevel = (state) => state.settings.batteryLevel;
 export const selectIsCharging = (state) => state.settings.isCharging;
+export const selectIsWindowGrid = (state) => state.settings.isWindowGrid;
 export const {
 	changeLayout,
 	changeMainColor,
@@ -58,6 +63,7 @@ export const {
 	changeVolume,
 	changeBatteryLevel,
 	toggleCharging,
+	toggleWindowGrid,
 } = settingsSlice.actions;
 
 export default settingsSlice.reducer;
