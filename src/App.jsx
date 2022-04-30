@@ -1,11 +1,19 @@
 import React, { useContext } from 'react';
 import { AppContext } from './context/AppProvider';
-import { LockScreen, Sidebar, Taskbar, Window, Modal, DraggableApp } from './components';
+import {
+	LockScreen,
+	Sidebar,
+	Taskbar,
+	Window,
+	Modal,
+	DraggableApp,
+	WindowContextMenu,
+} from './components';
 import { useSelector } from 'react-redux';
 import { selectLayout } from './app/settingsSlice';
 
 export default function App() {
-	const { isLocked, bg } = useContext(AppContext);
+	const { isLocked, bg, handleContextMenu } = useContext(AppContext);
 	const layout = useSelector(selectLayout);
 
 	return (
@@ -14,14 +22,14 @@ export default function App() {
 			<div className='absolute inset-0 -z-10'>
 				<img src={bg} alt='background' className='w-full h-full' />
 			</div>
-
 			{isLocked ? (
 				<LockScreen />
 			) : (
 				<div
-					className={`absolute inset-0 flex ${
+					className={`absolute inset-0 flex overflow-hidden ${
 						layout === 'ubuntu' ? 'flex-col' : 'flex-col-reverse'
 					}`}
+					onContextMenu={(e) => handleContextMenu(e)}
 				>
 					<Taskbar />
 					{/* <Sidebar /> */}
@@ -30,6 +38,7 @@ export default function App() {
 			)}
 
 			<Modal />
+			<WindowContextMenu />
 			<DraggableApp />
 		</div>
 	);

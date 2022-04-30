@@ -16,6 +16,31 @@ export default function AppProvider({ children }) {
 	};
 	const [draggableModalType, setDraggableModalType] = useState(initialDraggableModalType);
 
+	const [contextMenuOpen, setContextMenuOpen] = useState(false);
+	const [pointerPosition, setPointerPosition] = useState({
+		clientX: 0,
+		clientY: 0,
+		offsetLeft: 0,
+		offsetTop: 0,
+		offsetHeight: 0,
+		offsetWidth: 0,
+	});
+	const handleContextMenu = (e) => {
+		e.preventDefault();
+		if (!contextMenuOpen) setContextMenuOpen(true);
+
+		setPointerPosition({
+			clientX: e.clientX,
+			clientY: e.clientY,
+			offsetLeft: e.target.offsetLeft,
+			offsetTop: e.target.offsetTop,
+			offsetHeight: e.target.offsetHeight,
+			offsetWidth: e.target.offsetWidth,
+			right: e.target.getBoundingClientRect().right,
+			bottom: e.target.getBoundingClientRect().bottom,
+		});
+	};
+
 	// Settings
 	const [currentTime, setCurrentTime] = useState(Date.now());
 	useEffect(() => {
@@ -34,9 +59,9 @@ export default function AppProvider({ children }) {
 	}, [currentTime]);
 
 	const [darkTheme, setDarkTheme] = useState(false);
-	useEffect(() => {
-		// document.documentElement.classList.toggle('dark');
-	}, [darkTheme]);
+	// useEffect(() => {
+	// document.documentElement.classList.toggle('dark');
+	// }, [darkTheme]);
 
 	const value = {
 		modalType,
@@ -46,6 +71,11 @@ export default function AppProvider({ children }) {
 		initialDraggableModalType,
 		draggableModalType,
 		setDraggableModalType,
+		contextMenuOpen,
+		setContextMenuOpen,
+		pointerPosition,
+		setPointerPosition,
+		handleContextMenu,
 		isLocked,
 		setIsLocked,
 		bg,

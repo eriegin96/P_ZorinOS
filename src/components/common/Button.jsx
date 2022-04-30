@@ -71,11 +71,6 @@ export function WindowIconButton({
 		collect: (monitor) => ({
 			isDragging: monitor.isDragging(),
 		}),
-		end: (_, monitor) => {
-			if (monitor.didDrop()) {
-				ref.current.blur();
-			}
-		},
 	});
 
 	drag(drop(ref));

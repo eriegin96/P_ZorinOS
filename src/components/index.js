@@ -11,6 +11,8 @@ export { default as Sidebar } from './Sidebar';
 export { default as Window } from './Window';
 export { default as LockScreen } from './LockScreen';
 export { default as StatusBar } from './StatusBar';
+export { default as WindowContextMenu } from './WindowContextMenu';
 
 export { default as Modal } from './modals/Modal';
 export { default as StatusBox } from './modals/StatusBox';
+export { default as WindowContextBox } from './modals/WindowContextBox';

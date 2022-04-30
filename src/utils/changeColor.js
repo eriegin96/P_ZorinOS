@@ -71,12 +71,14 @@ import {
 	redLightVideosFolder,
 } from '../assets/images/folders';
 
-export function changeColorSet(color) {
+export function changeColorSet(color, darkTheme) {
 	return {
-		text: `text-${color}-dark`,
-		bg: `bg-${color}-dark`,
-		border: `border-${color}-dark`,
-		outline: `outline-${color}-dark`,
+		text: `text-${color}-${darkTheme ? 'light' : 'dark'}`,
+		bg: `bg-${color}-${darkTheme ? 'light' : 'dark'}`,
+		bgImage: `bg-gradient-${color}`,
+		bgImageHover: `hover:bg-gradient-${color}`,
+		border: `border-${color}-${darkTheme ? 'light' : 'dark'}`,
+		outline: `outline-${color}-${darkTheme ? 'light' : 'dark'}`,
 	};
 }
 

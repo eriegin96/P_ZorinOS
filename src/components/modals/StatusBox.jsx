@@ -10,14 +10,16 @@ import {
 	calculateBatteryToFullTime,
 } from '../../utils/calculateTime';
 import { useSelector } from 'react-redux';
-import { selectBatteryLevel, selectIsCharging } from '../../app/settingsSlice';
+import { selectBatteryLevel, selectColorset, selectIsCharging } from '../../app/settingsSlice';
 
 function StatusItem({ open, disabled, onClick, children }) {
+	const { bgImage, bgImageHover } = useSelector(selectColorset);
+
 	return (
 		<div
 			className={`py-1 px-4 text-sm flex items-center gap-2 hover:bg-gray-200 ${
 				disabled ? 'text-gray-400 hover:bg-inherit' : ''
-			} ${open ? 'bg-gradient-blue hover:bg-gradient-blue text-white' : ''}`}
+			} ${open ? `${bgImage} ${bgImageHover} text-white` : ''}`}
 			onClick={onClick}
 		>
 			{children}
@@ -37,7 +39,7 @@ export default function StatusBox() {
 	const [showSubItem, setShowSubItem] = useState(initialShowSubItem);
 
 	return (
-		<div className='py-2 bg-white-main rounded-lg text-black'>
+		<div className='Menu'>
 			<StatusItem>
 				<IoMdVolumeHigh />
 				<div>
@@ -60,12 +62,14 @@ export default function StatusBox() {
 					{!isLocked && (showSubItem.connection ? <IoCaretDown /> : <IoCaretForward />)}
 				</span>
 			</StatusItem>
+
 			{showSubItem.connection && (
 				<div className='basis-full bg-white text-black text-xs'>
 					<SubItem>Turn Off</SubItem>
 					<SubItem>Wire Settings</SubItem>
 				</div>
 			)}
+
 			<StatusItem
 				open={showSubItem.battery}
 				disabled={isLocked}
@@ -85,6 +89,7 @@ export default function StatusBox() {
 					{!isLocked && (showSubItem.battery ? <IoCaretDown /> : <IoCaretForward />)}
 				</span>
 			</StatusItem>
+
 			{showSubItem.battery && (
 				<div className='basis-full bg-white text-black text-xs'>
 					<SubItem>Power Settings</SubItem>
@@ -114,6 +119,7 @@ export default function StatusBox() {
 				<span className='grow text-xs'>Power Off / Log Out</span>
 				<span className='Center'>{showSubItem.power ? <IoCaretDown /> : <IoCaretForward />}</span>
 			</StatusItem>
+
 			{showSubItem.power && (
 				<div className='basis-full bg-white text-black text-xs'>
 					<SubItem>Suspend</SubItem>
