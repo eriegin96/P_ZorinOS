@@ -1,23 +1,23 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { BACKGROUND_LIST } from '../constants';
 
-const mainColor = 'blue';
+const MAIN_COLOR = 'blue';
 
 export const settingsSlice = createSlice({
 	name: 'settings',
 	initialState: {
 		layout: 'window',
 		background: BACKGROUND_LIST[0].day,
-		darkTheme: false,
-		mainColor: mainColor,
+		darkTheme: JSON.parse(localStorage.getItem('dark-theme')) ?? false,
+		mainColor: MAIN_COLOR,
 		// blue, green, orange, red, purple
 		colorSet: {
-			text: `text-${mainColor}-dark`,
-			bg: `bg-${mainColor}-dark`,
-			bgImage: `bg-gradient-${mainColor}`,
-			bgImageHover: `hover:bg-gradient-${mainColor}`,
-			border: `border-${mainColor}-dark`,
-			outline: `outline-${mainColor}-dark`,
+			text: `text-${MAIN_COLOR}-dark`,
+			bg: `bg-${MAIN_COLOR}-dark`,
+			bgImage: `bg-gradient-${MAIN_COLOR}`,
+			bgImageHover: `bg-gradient-${MAIN_COLOR}-hover`,
+			border: `border-${MAIN_COLOR}-dark`,
+			outline: `outline-${MAIN_COLOR}-dark`,
 		},
 		brightness: 50,
 		volume: 100,
@@ -31,6 +31,16 @@ export const settingsSlice = createSlice({
 		},
 		toggleDarkTheme: (state) => {
 			state.darkTheme = !state.darkTheme;
+			state.colorSet = {
+				text: `text-${state.mainColor}-${state.darkTheme ? 'light' : 'dark'}`,
+				bg: `bg-${state.mainColor}-${state.darkTheme ? 'light' : 'dark'}`,
+				bgImage: `bg-gradient-${state.mainColor}`,
+				bgImageHover: `bg-gradient-${state.mainColor}-hover`,
+				border: `border-${state.mainColor}-${state.darkTheme ? 'light' : 'dark'}`,
+				outline: `outline-${state.mainColor}-${state.darkTheme ? 'light' : 'dark'}`,
+			};
+			document.documentElement.classList.toggle('dark');
+			localStorage.setItem('dark-theme', state.darkTheme);
 		},
 		changeMainColor: (state, action) => {
 			state.mainColor = action.payload;
@@ -38,7 +48,7 @@ export const settingsSlice = createSlice({
 				text: `text-${action.payload}-${state.darkTheme ? 'light' : 'dark'}`,
 				bg: `bg-${action.payload}-${state.darkTheme ? 'light' : 'dark'}`,
 				bgImage: `bg-gradient-${action.payload}`,
-				bgImageHover: `hover:bg-gradient-${action.payload}`,
+				bgImageHover: `bg-gradient-${action.payload}-hover`,
 				border: `border-${action.payload}-${state.darkTheme ? 'light' : 'dark'}`,
 				outline: `outline-${action.payload}-${state.darkTheme ? 'light' : 'dark'}`,
 			};

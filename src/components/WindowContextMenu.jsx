@@ -8,7 +8,10 @@ export default function WindowContextMenu() {
 		useContext(AppContext);
 	const [menuPosition, setMenuPosition] = useState({});
 	const [fromRight, setFromRight] = useState(false);
+	const [fromBottom, setFromBottom] = useState(false);
 	const contextMenuRef = useRef();
+	const boxItem1Ref = useRef();
+	const boxItem2Ref = useRef();
 
 	useLayoutEffect(() => {
 		const { clientX, clientY, right, bottom } = pointerPosition;
@@ -16,9 +19,18 @@ export default function WindowContextMenu() {
 			width: 0,
 			height: 0,
 		};
+		const { width: widthBox1 } = boxItem1Ref?.current?.getBoundingClientRect() ?? {
+			width: 0,
+			height: 0,
+		};
+		const { height: heightBox2 } = boxItem2Ref?.current?.getBoundingClientRect() ?? {
+			width: 0,
+			height: 0,
+		};
 
 		setMenuPosition(calculateMenuPosition(clientX, clientY, right, bottom, width, height));
-		setFromRight(clientX + width >= right);
+		setFromRight(clientX + width + widthBox1 >= right);
+		setFromBottom(clientY + height + heightBox2 >= bottom);
 	}, [pointerPosition]);
 
 	return (
@@ -32,7 +44,13 @@ export default function WindowContextMenu() {
 					/>
 
 					<div style={menuPosition} className='absolute transition-opacity duration-200'>
-						<WindowContextBox thisRef={contextMenuRef} fromRight={fromRight} />
+						<WindowContextBox
+							thisRef={contextMenuRef}
+							boxItem1Ref={boxItem1Ref}
+							boxItem2Ref={boxItem2Ref}
+							fromRight={fromRight}
+							fromBottom={fromBottom}
+						/>
 					</div>
 				</div>
 			)}

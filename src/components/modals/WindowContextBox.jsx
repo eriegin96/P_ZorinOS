@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React from 'react';
 import { AiOutlineCheck } from 'react-icons/ai';
 import { IoCaretForward } from 'react-icons/io5';
 import { useDispatch, useSelector } from 'react-redux';
@@ -28,21 +28,10 @@ const mainColors = [
 ];
 
 function BoxItem({ onClick, className, children }) {
-	const mainColor = useSelector(selectMainColor);
 	const { bgImageHover } = useSelector(selectColorset);
 
 	return (
 		<div
-			// className={`py-1 px-4 text-sm flex items-center gap-2 ${
-			// 	mainColor === 'blue' ? 'hover:bg-gradient-blue' : ''
-			// }${mainColor === 'green' ? 'hover:bg-gradient-green' : ''}${
-			// 	mainColor === 'red' ? 'hover:bg-gradient-red' : ''
-			// }${mainColor === 'orange' ? 'hover:bg-gradient-orange' : ''}${
-			// 	mainColor === 'purple' ? 'hover:bg-gradient-purple' : ''
-			// } hover:text-white ${className}`}
-			// className={`py-1 px-4 text-sm flex items-center gap-2 ${
-			// 	changeColorSet(mainColor, false).bgImageHover
-			// } hover:text-white ${className}`}
 			className={`py-1 px-4 text-sm flex items-center gap-2 ${bgImageHover} hover:text-white ${className}`}
 			onClick={onClick}
 		>
@@ -51,13 +40,18 @@ function BoxItem({ onClick, className, children }) {
 	);
 }
 
-export default function WindowContextBox({ thisRef, fromRight }) {
+export default function WindowContextBox({
+	thisRef,
+	boxItem1Ref,
+	boxItem2Ref,
+	fromRight,
+	fromBottom,
+}) {
 	const dispatch = useDispatch();
 	const isWindowGrid = useSelector(selectIsWindowGrid);
 	const layout = useSelector(selectLayout);
 	const mainColor = useSelector(selectMainColor);
 	const darkTheme = useSelector(selectDarkTheme);
-	const boxItemRef = useRef();
 
 	return (
 		<div ref={thisRef} className='Menu w-[160px]'>
@@ -65,7 +59,7 @@ export default function WindowContextBox({ thisRef, fromRight }) {
 				<span className='grow text-xs'>View</span>
 				<IoCaretForward />
 				<div
-					ref={boxItemRef}
+					ref={boxItem1Ref}
 					className={`absolute ${
 						fromRight ? 'left-0 -translate-x-full' : 'left-full'
 					} w-max invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-opacity duration-300 Menu`}
@@ -98,8 +92,9 @@ export default function WindowContextBox({ thisRef, fromRight }) {
 				<span className='grow text-xs'>Theme</span>
 				<IoCaretForward />
 				<div
-					className={`absolute ${
-						fromRight ? 'left-0 -translate-x-full' : 'left-full'
+					ref={boxItem2Ref}
+					className={`absolute ${fromRight ? 'left-0 -translate-x-full' : 'left-full'}  ${
+						fromBottom ? 'bottom-0' : ''
 					} w-max invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-opacity duration-300 Menu`}
 				>
 					<BoxItem onClick={() => dispatch(toggleDarkTheme())}>

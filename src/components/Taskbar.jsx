@@ -12,7 +12,7 @@ export default function Taskbar() {
 
 	return (
 		<div
-			className={`w-full flex justify-between items-center shadow-md text-white bg-black text-sm ${
+			className={`w-full flex justify-between items-center shadow-md text-sm BgTransparentColor TextColor ${
 				layout === 'ubuntu' ? '' : 'h-12'
 			}`}
 		>

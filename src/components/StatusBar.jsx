@@ -7,17 +7,20 @@ import Battery from './common/Battery';
 import Menu from './common/Menu';
 
 export default function StatusBar({ position, fromBottom, fromRight }) {
-	const { darkTheme, setDarkTheme, menuType, setMenuType } = useContext(AppContext);
+	const { isLocked, menuType, setMenuType } = useContext(AppContext);
 
 	return (
 		<div className='relative'>
 			<div
-				className={`text-white dark:text-black hover:bg-transparent-w-10 rounded-lg px-2 py-1 Center ${
-					menuType === 'status' ? 'bg-transparent-w-20' : ''
-				} ${position}`}
+				className={`${
+					isLocked
+						? 'text-white hover:bg-transparent-w-10'
+						: 'hover:bg-transparent-b-10 dark:hover:bg-transparent-w-10 TextColor'
+				}  rounded-lg px-2 py-1 Center ${
+					menuType === 'status' && !isLocked ? 'bg-transparent-b-20 dark:bg-transparent-w-20' : ''
+				}${menuType === 'status' && isLocked ? 'bg-transparent-w-20' : ''} ${position}`}
 				onClick={(e) => {
 					e.stopPropagation();
-					setDarkTheme(!darkTheme);
 					setMenuType('status');
 				}}
 			>

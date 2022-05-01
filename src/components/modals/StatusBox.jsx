@@ -17,7 +17,7 @@ function StatusItem({ open, disabled, onClick, children }) {
 
 	return (
 		<div
-			className={`py-1 px-4 text-sm flex items-center gap-2 hover:bg-gray-200 ${
+			className={`py-1 px-4 text-sm flex items-center gap-2 BgColorHover ${
 				disabled ? 'text-gray-400 hover:bg-inherit' : ''
 			} ${open ? `${bgImage} ${bgImageHover} text-white` : ''}`}
 			onClick={onClick}
@@ -27,12 +27,16 @@ function StatusItem({ open, disabled, onClick, children }) {
 	);
 }
 
-function SubItem({ children }) {
-	return <div className='py-1 pl-9 bg-white hover:bg-gray-200'>{children}</div>;
+function SubItem({ children, onClick }) {
+	return (
+		<div className='py-1 pl-9 BgColorHover BgColor TextColor' onClick={onClick}>
+			{children}
+		</div>
+	);
 }
 
 export default function StatusBox() {
-	const { isLocked } = useContext(AppContext);
+	const { isLocked, setIsLocked } = useContext(AppContext);
 	const batteryLevel = useSelector(selectBatteryLevel);
 	const isCharging = useSelector(selectIsCharging);
 	const initialShowSubItem = { connection: false, battery: false, power: false };
@@ -121,14 +125,14 @@ export default function StatusBox() {
 			</StatusItem>
 
 			{showSubItem.power && (
-				<div className='basis-full bg-white text-black text-xs'>
+				<div className='basis-full text-xs BgColor TextColor'>
 					<SubItem>Suspend</SubItem>
 					{!isLocked && (
 						<>
 							<SubItem>Restart...</SubItem>
 							<SubItem>Power Off...</SubItem>
 							<div className='mx-4 my-2 border-b' />
-							<SubItem>Log Out</SubItem>
+							<SubItem onClick={() => setIsLocked(true)}>Log Out</SubItem>
 						</>
 					)}
 				</div>

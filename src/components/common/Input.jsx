@@ -1,4 +1,6 @@
 import React, { useContext } from 'react';
+import { useSelector } from 'react-redux';
+import { selectColorset } from '../../app/settingsSlice';
 import { AppContext } from '../../context/AppProvider';
 
 export default function Input(props) {
@@ -13,7 +15,7 @@ export default function Input(props) {
 		onChange,
 		onKeyDown,
 	} = props;
-	const { color } = useContext(AppContext);
+	const { border, outline } = useSelector(selectColorset);
 
 	return (
 		<input
@@ -21,7 +23,7 @@ export default function Input(props) {
 			name={name}
 			placeholder={placeholder}
 			autoFocus={autoFocus}
-			className={`${className} ${color.border} ${color.outline} rounded-md cursor-text`}
+			className={`${className ? className : ''} ${border} ${outline} rounded-md cursor-text`}
 			value={value}
 			onChange={onChange}
 			onKeyDown={onKeyDown}
@@ -32,13 +34,15 @@ export default function Input(props) {
 }
 
 export function TextArea({ className, name, cols, rows, placeholder, children, value, onChange }) {
+	const { border, outline } = useSelector(selectColorset);
+
 	return (
 		<textarea
 			name={name}
 			cols={cols}
 			rows={rows}
 			placeholder={placeholder}
-			className={`${className} ${color.border} ${color.outline} rounded-md cursor-text`}
+			className={`${className} ${border} ${outline} rounded-md cursor-text`}
 			value={value}
 			onChange={onChange}
 		>

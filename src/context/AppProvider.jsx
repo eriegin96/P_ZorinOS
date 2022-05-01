@@ -1,12 +1,17 @@
-import React, { createContext, useState, useEffect } from 'react';
-import { useLayoutEffect } from 'react';
+import React, { createContext, useState, useEffect, useLayoutEffect } from 'react';
+import { useSelector } from 'react-redux';
+import { selectDarkTheme } from '../app/settingsSlice';
 import { BACKGROUND_LIST } from '../constants';
 import { changeBackground } from '../utils/changeBackground';
 
 export const AppContext = createContext();
 
 export default function AppProvider({ children }) {
+	const darkTheme = useSelector(selectDarkTheme);
 	const [isLocked, setIsLocked] = useState(false);
+	useEffect(() => {
+		setMenuType('');
+	}, [isLocked]);
 
 	const [modalType, setModalType] = useState();
 	const [menuType, setMenuType] = useState();
@@ -27,6 +32,7 @@ export default function AppProvider({ children }) {
 	});
 	const handleContextMenu = (e) => {
 		e.preventDefault();
+		setMenuType('');
 		if (!contextMenuOpen) setContextMenuOpen(true);
 
 		setPointerPosition({
@@ -43,13 +49,13 @@ export default function AppProvider({ children }) {
 
 	// Settings
 	const [currentTime, setCurrentTime] = useState(Date.now());
-	useEffect(() => {
-		const interval = setInterval(() => {
-			setCurrentTime(Date.now());
-		}, 1000);
+	// useEffect(() => {
+	// 	const interval = setInterval(() => {
+	// 		setCurrentTime(Date.now());
+	// 	}, 1000);
 
-		return () => clearInterval(interval);
-	}, [currentTime]);
+	// 	return () => clearInterval(interval);
+	// }, [currentTime]);
 
 	// Appearance
 	const [bg, setBg] = useState(BACKGROUND_LIST[0].day);
@@ -58,10 +64,9 @@ export default function AppProvider({ children }) {
 		setBg(newBg);
 	}, [currentTime]);
 
-	const [darkTheme, setDarkTheme] = useState(false);
-	// useEffect(() => {
-	// document.documentElement.classList.toggle('dark');
-	// }, [darkTheme]);
+	useLayoutEffect(() => {
+		if (darkTheme) document.documentElement.classList.add('dark');
+	}, []);
 
 	const value = {
 		modalType,
@@ -80,8 +85,6 @@ export default function AppProvider({ children }) {
 		setIsLocked,
 		bg,
 		setBg,
-		darkTheme,
-		setDarkTheme,
 		currentTime,
 	};
 

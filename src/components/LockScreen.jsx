@@ -63,11 +63,8 @@ export default function LockScreen() {
 			id='lock'
 			className='w-full relative h-screen backdrop-blur-xl bg-transparent-b-50 text-white'
 			onClick={() => setIsLogging(true)}
+			onContextMenu={(e) => e.preventDefault()}
 		>
-			<div className='absolute right-0 top-0'>
-				<StatusBar className='mt-1' />
-			</div>
-
 			<div className='w-[300px] h-full relative mx-auto text-center flex-col font-light Center'>
 				{isLogging ? (
 					<>
@@ -114,6 +111,10 @@ export default function LockScreen() {
 				)}
 
 				<img src={logo} alt='logo' className='absolute bottom-12' />
+			</div>
+
+			<div className='absolute right-0 top-0 mt-1 mr-1'>
+				<StatusBar fromRight />
 			</div>
 		</div>
 	);

@@ -25,7 +25,8 @@ module.exports = {
 				menu: '0 0 5px 5px rgba(0, 0, 0, 0.1)',
 			},
 			colors: {
-				'white-main': 'var(--white-main)',
+				'light-main': 'var(--light-main)',
+				'dark-main': 'var(--dark-main)',
 				'blue-dark': 'var(--blue-dark)',
 				'blue-light': 'var(--blue-light)',
 				'green-dark': 'var(--green-dark)',
@@ -42,6 +43,7 @@ module.exports = {
 				'transparent-w-50': 'rgba(255, 255, 255, 0.5)',
 				'transparent-w-70': 'rgba(255, 255, 255, 0.7)',
 				'transparent-b-10': 'rgba(0, 0, 0, 0.1)',
+				'transparent-b-20': 'rgba(0, 0, 0, 0.2)',
 				'transparent-b-30': 'rgba(0, 0, 0, 0.3)',
 				'transparent-b-50': 'rgba(0, 0, 0, 0.5)',
 				'transparent-b-70': 'rgba(0, 0, 0, 0.7)',
