@@ -94,7 +94,7 @@ export default function WindowContextBox({
 				<div
 					ref={boxItem2Ref}
 					className={`absolute ${fromRight ? 'left-0 -translate-x-full' : 'left-full'}  ${
-						fromBottom ? 'bottom-0' : ''
+						fromBottom ? '-bottom-10' : ''
 					} w-max invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-opacity duration-300 Menu`}
 				>
 					<BoxItem onClick={() => dispatch(toggleDarkTheme())}>

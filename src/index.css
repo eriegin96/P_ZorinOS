@@ -72,7 +72,7 @@ svg {
 }
 
 .TaskbarButton {
-	@apply p-1.5 hover:bg-transparent-w-10;
+	@apply p-1.5 dark:hover:bg-transparent-w-10 hover:bg-transparent-b-10;
 }
 
 .BgColor {

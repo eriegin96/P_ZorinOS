@@ -2,7 +2,7 @@ export { default as Battery } from './common/Battery';
 export { default as Sound } from './common/Sound';
 export { default as Menu } from './common/Menu';
 export { default as DraggableApp } from './common/DraggableApp';
-export { default as DraggableIcon } from './common/DraggableIcon';
+export { default as DraggableWindowItem } from './common/DraggableWindowItem';
 export * from './common/Button';
 export * from './common/Input';
 

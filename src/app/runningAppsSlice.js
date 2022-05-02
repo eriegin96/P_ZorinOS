@@ -9,35 +9,36 @@ export const runningAppsSlice = createSlice({
 	},
 	reducers: {
 		openApp: (state, action) => {
-			state.open.push(action.payload);
+			if (state.open.findIndex((a) => a.name === action.payload.name) < 0)
+				state.open.push(action.payload);
 		},
 		maximizeApp: (state, action) => {
 			state.open.splice(
-				state.open.indexOf((a) => a.name === action.payload.name),
+				state.open.findIndex((a) => a.name === action.payload.name),
 				1
 			);
-			state.maximize.push(action.payload);
+			state.maximized.push(action.payload);
 		},
 		minimizeApp: (state, action) => {
-			const minimizeAppIndex = state.open.indexOf((a) => a.name === action.payload.name);
+			const minimizeAppIndex = state.open.findIndex((a) => a.name === action.payload.name);
 			if (minimizeAppIndex >= 0) {
 				state.open.splice(minimizeAppIndex, 1);
 			} else {
-				state.maximize.splice(
-					state.maximize.indexOf((a) => a.name === action.payload.name),
+				state.maximized.splice(
+					state.maximized.findIndex((a) => a.name === action.payload.name),
 					1
 				);
 			}
 
-			state.minimize.push(action.payload);
+			state.minimized.push(action.payload);
 		},
 		normalizeApp: (state, action) => {
-			const normalizeAppIndex = state.minimize.indexOf((a) => a.name === action.payload.name);
+			const normalizeAppIndex = state.minimized.findIndex((a) => a.name === action.payload.name);
 			if (normalizeAppIndex >= 0) {
-				state.minimize.splice(normalizeAppIndex, 1);
+				state.minimized.splice(normalizeAppIndex, 1);
 			} else {
-				state.maximize.splice(
-					state.maximize.indexOf((a) => a.name === action.payload.name),
+				state.maximized.splice(
+					state.maximized.findIndex((a) => a.name === action.payload.name),
 					1
 				);
 			}
@@ -45,13 +46,13 @@ export const runningAppsSlice = createSlice({
 			state.open.push(action.payload);
 		},
 		closeApp: (state, action) => {
-			const closeAppIndex = state.open.indexOf((a) => a.name === action.payload.name);
+			const closeAppIndex = state.open.findIndex((a) => a.name === action.payload.name);
 			if (closeAppIndex >= 0) {
-				state.open.splice(action.payload);
-			} else if (state.minimize.indexOf((a) => a.name === action.payload.name) >= 0) {
-				state.minimize.splice(state.minimize.indexOf((a) => a.name === action.payload.name));
+				state.open.splice(closeAppIndex, 1);
+			} else if (state.minimized.findIndex((a) => a.name === action.payload.name) >= 0) {
+				state.minimized.splice(state.minimized.findIndex((a) => a.name === action.payload.name));
 			} else {
-				state.maximize.splice(state.maximize.indexOf((a) => a.name === action.payload.name));
+				state.maximized.splice(state.maximized.findIndex((a) => a.name === action.payload.name));
 			}
 		},
 	},
@@ -60,7 +61,7 @@ export const runningAppsSlice = createSlice({
 export const selectRunningApps = (state) => state.runningApps.open;
 export const selectRunningMaximizedApps = (state) => state.runningApps.maximized;
 export const selectRunningMinimizedApps = (state) => state.runningApps.minimized;
-export const { openApp, maximizeApp, minimizeApp, normalizeApp, closeApp } =
+export const { openApp, moveAppOnTop, maximizeApp, minimizeApp, normalizeApp, closeApp } =
 	runningAppsSlice.actions;
 
 export default runningAppsSlice.reducer;

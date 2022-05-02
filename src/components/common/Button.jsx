@@ -17,6 +17,7 @@ export function WindowIconButton({
 	title,
 	className = '',
 	children,
+	onDoubleClick,
 	...props
 }) {
 	const ref = useRef(null);
@@ -76,19 +77,18 @@ export function WindowIconButton({
 	drag(drop(ref));
 
 	return (
-		<div className='flex justify-center items-start'>
-			<button
-				ref={ref}
-				type='button'
-				data-handler-id={handlerId}
-				className={`WindowIconButton py-1 px-2 flex flex-col items-center rounded-md cursor-default Transition-colors ${
-					isDragging ? 'opacity-50' : 'opacity-100'
-				} ${className}`}
-				{...props}
-			>
-				{children}
-			</button>
-		</div>
+		<button
+			ref={ref}
+			type='button'
+			data-handler-id={handlerId}
+			className={`py-1 px-2 flex flex-col items-center rounded-md cursor-default WindowIconButton Transition-colors ${
+				isDragging ? 'opacity-50' : 'opacity-100'
+			} ${className}`}
+			{...props}
+			onDoubleClick={onDoubleClick}
+		>
+			{children}
+		</button>
 	);
 }
 

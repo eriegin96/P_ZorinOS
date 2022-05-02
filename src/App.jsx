@@ -34,12 +34,11 @@ export default function App() {
 					<Taskbar />
 					{/* <Sidebar /> */}
 					<Window />
+					<WindowContextMenu />
+					<Modal />
+					{/* <DraggableApp /> */}
 				</div>
 			)}
-
-			<Modal />
-			<WindowContextMenu />
-			<DraggableApp />
 		</div>
 	);
 }

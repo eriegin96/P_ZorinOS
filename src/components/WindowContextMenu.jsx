@@ -36,14 +36,12 @@ export default function WindowContextMenu() {
 	return (
 		<>
 			{contextMenuOpen && (
-				<div className='overflow-x-hidden' onContextMenu={(e) => e.preventDefault()}>
-					<div
-						className='fixed inset-0 overflow-hidden'
-						onClick={() => setContextMenuOpen(false)}
-						onContextMenu={(e) => handleContextMenu(e)}
-					/>
-
-					<div style={menuPosition} className='absolute transition-opacity duration-200'>
+				<div
+					className='overflow-x-hidden'
+					onClick={() => setContextMenuOpen(false)}
+					onContextMenu={(e) => handleContextMenu(e)}
+				>
+					<div style={menuPosition} className='absolute transition-opacity duration-200 z-20'>
 						<WindowContextBox
 							thisRef={contextMenuRef}
 							boxItem1Ref={boxItem1Ref}

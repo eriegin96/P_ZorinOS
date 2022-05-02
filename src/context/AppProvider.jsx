@@ -42,8 +42,14 @@ export default function AppProvider({ children }) {
 			offsetTop: e.target.offsetTop,
 			offsetHeight: e.target.offsetHeight,
 			offsetWidth: e.target.offsetWidth,
-			right: e.target.getBoundingClientRect().right,
-			bottom: e.target.getBoundingClientRect().bottom,
+			right:
+				e.target.id !== 'window'
+					? e.target.parentNode.getBoundingClientRect().right
+					: e.target.getBoundingClientRect().right,
+			bottom:
+				e.target.id !== 'window'
+					? e.target.parentNode.getBoundingClientRect().bottom
+					: e.target.getBoundingClientRect().bottom,
 		});
 	};
 
