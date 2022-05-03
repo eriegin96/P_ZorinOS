@@ -1,7 +1,7 @@
 import React, { useContext, useLayoutEffect, useRef, useState } from 'react';
-import { AppContext } from '../context/AppProvider';
-import { WindowContextBox } from '.';
-import { calculateMenuPosition } from '../utils/calculateMenuPosition';
+import { AppContext } from '../../context/AppProvider';
+import { calculateMenuPosition } from '../../utils/calculateMenuPosition';
+import WindowContextBox from './WindowContextBox';
 
 export default function WindowContextMenu() {
 	const { contextMenuOpen, setContextMenuOpen, pointerPosition, handleContextMenu } =

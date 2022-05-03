@@ -22,7 +22,8 @@ module.exports = {
 				'gradient-purple': 'var(--gradient-purple)',
 			},
 			boxShadow: {
-				menu: '0 0 5px 5px rgba(0, 0, 0, 0.1)',
+				'menu-dark': '0 0 5px 5px rgba(0, 0, 0, 0.1)',
+				'menu-light': '0 0 5px 5px rgba(255, 255, 255, 0.1)',
 			},
 			colors: {
 				'light-main': 'var(--light-main)',

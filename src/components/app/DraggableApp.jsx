@@ -1,5 +1,4 @@
 import React, { useContext } from 'react';
-import Draggable from 'react-draggable';
 import { AppContext } from '../../context/AppProvider';
 
 export default function DraggableApp() {
@@ -9,12 +8,12 @@ export default function DraggableApp() {
 
 	return (
 		<>
-			{app && (
+			{/* {app && (
 				<Draggable handle='.handle'>
 					<div className=''>app</div>
 				</Draggable>
 			)}
-			{file && 'file'}
+			{file && 'file'} */}
 		</>
 	);
 }

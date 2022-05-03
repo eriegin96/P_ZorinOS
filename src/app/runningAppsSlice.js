@@ -1,67 +1,81 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { APP_LIST } from '../constants/apps';
 
 export const runningAppsSlice = createSlice({
 	name: 'runningApps',
 	initialState: {
-		open: [],
-		minimized: [],
-		maximized: [],
+		normal: APP_LIST.map((app, index) => ({
+			...app,
+			isOpen: false,
+			isNormal: false,
+			isMaximized: false,
+			isMinimized: false,
+			normalPosition: { x: 100 + index * 5, y: 50 + index * 5 },
+			position: { x: 100 + index * 10, y: 50 + index * 10 },
+		})),
 	},
 	reducers: {
 		openApp: (state, action) => {
-			if (state.open.findIndex((a) => a.name === action.payload.name) < 0)
-				state.open.push(action.payload);
+			const selectedApp = state.normal.find((a) => a.name === action.payload.name);
+			if (selectedApp) {
+				selectedApp.isOpen = true;
+				selectedApp.isNormal = true;
+			}
 		},
 		maximizeApp: (state, action) => {
-			state.open.splice(
-				state.open.findIndex((a) => a.name === action.payload.name),
-				1
-			);
-			state.maximized.push(action.payload);
+			const selectedApp = state.normal.find((a) => a.name === action.payload.name);
+			if (selectedApp) {
+				selectedApp.isMaximized = true;
+				selectedApp.isNormal = false;
+				selectedApp.isMinimized = false;
+				selectedApp.position = { x: 0, y: 0 };
+			}
 		},
 		minimizeApp: (state, action) => {
-			const minimizeAppIndex = state.open.findIndex((a) => a.name === action.payload.name);
-			if (minimizeAppIndex >= 0) {
-				state.open.splice(minimizeAppIndex, 1);
-			} else {
-				state.maximized.splice(
-					state.maximized.findIndex((a) => a.name === action.payload.name),
-					1
-				);
+			const selectedApp = state.normal.find((a) => a.name === action.payload.name);
+			if (selectedApp) {
+				selectedApp.isMinimized = true;
+				selectedApp.isMaximized = false;
+				selectedApp.isNormal = false;
 			}
-
-			state.minimized.push(action.payload);
 		},
 		normalizeApp: (state, action) => {
-			const normalizeAppIndex = state.minimized.findIndex((a) => a.name === action.payload.name);
-			if (normalizeAppIndex >= 0) {
-				state.minimized.splice(normalizeAppIndex, 1);
-			} else {
-				state.maximized.splice(
-					state.maximized.findIndex((a) => a.name === action.payload.name),
-					1
-				);
+			const selectedApp = state.normal.find((a) => a.name === action.payload.name);
+			if (selectedApp) {
+				selectedApp.isNormal = true;
+				selectedApp.isMaximized = false;
+				selectedApp.isMinimized = false;
+				selectedApp.position = selectedApp.normalPosition;
 			}
-
-			state.open.push(action.payload);
 		},
 		closeApp: (state, action) => {
-			const closeAppIndex = state.open.findIndex((a) => a.name === action.payload.name);
-			if (closeAppIndex >= 0) {
-				state.open.splice(closeAppIndex, 1);
-			} else if (state.minimized.findIndex((a) => a.name === action.payload.name) >= 0) {
-				state.minimized.splice(state.minimized.findIndex((a) => a.name === action.payload.name));
-			} else {
-				state.maximized.splice(state.maximized.findIndex((a) => a.name === action.payload.name));
+			const selectedApp = state.normal.find((a) => a.name === action.payload.name);
+			if (selectedApp) {
+				selectedApp.isOpen = false;
+				selectedApp.isMaximized = false;
+				selectedApp.isNormal = false;
+				selectedApp.isMinimized = false;
+			}
+		},
+		changeAppPosition: (state, action) => {
+			const selectedApp = state.normal.find((a) => a.name === action.payload.app.name);
+			if (selectedApp) {
+				if (selectedApp.isNormal) selectedApp.normalPosition = action.payload.position;
+				selectedApp.position = action.payload.position;
 			}
 		},
 	},
 });
 
-export const selectRunningApps = (state) => state.runningApps.open;
-export const selectRunningMaximizedApps = (state) => state.runningApps.maximized;
-export const selectRunningMinimizedApps = (state) => state.runningApps.minimized;
-export const { openApp, moveAppOnTop, maximizeApp, minimizeApp, normalizeApp, closeApp } =
-	runningAppsSlice.actions;
+export const selectRunningApps = (state) => state.runningApps.normal;
+export const {
+	openApp,
+	moveAppOnTop,
+	maximizeApp,
+	minimizeApp,
+	normalizeApp,
+	closeApp,
+	changeAppPosition,
+} = runningAppsSlice.actions;
 
 export default runningAppsSlice.reducer;

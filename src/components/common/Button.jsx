@@ -81,7 +81,7 @@ export function WindowIconButton({
 			ref={ref}
 			type='button'
 			data-handler-id={handlerId}
-			className={`py-1 px-2 flex flex-col items-center rounded-md cursor-default WindowIconButton Transition-colors ${
+			className={`py-1 px-2 flex flex-col items-center rounded-md cursor-default WindowIconButton TransitionColor ${
 				isDragging ? 'opacity-50' : 'opacity-100'
 			} ${className}`}
 			{...props}

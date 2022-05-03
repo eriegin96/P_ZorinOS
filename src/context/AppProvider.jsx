@@ -14,6 +14,7 @@ export default function AppProvider({ children }) {
 	}, [isLocked]);
 
 	const [modalType, setModalType] = useState();
+	// const [modalType, setModalType] = useState('full-screen');
 	const [menuType, setMenuType] = useState();
 	const initialDraggableModalType = {
 		app: false,
@@ -30,6 +31,16 @@ export default function AppProvider({ children }) {
 		offsetHeight: 0,
 		offsetWidth: 0,
 	});
+	const changePointerPosition = (e) => {
+		setPointerPosition({
+			clientX: e.clientX,
+			clientY: e.clientY,
+			offsetLeft: e.target.offsetLeft,
+			offsetTop: e.target.offsetTop,
+			offsetHeight: e.target.offsetHeight,
+			offsetWidth: e.target.offsetWidth,
+		});
+	};
 	const handleContextMenu = (e) => {
 		e.preventDefault();
 		setMenuType('');
@@ -86,6 +97,7 @@ export default function AppProvider({ children }) {
 		setContextMenuOpen,
 		pointerPosition,
 		setPointerPosition,
+		changePointerPosition,
 		handleContextMenu,
 		isLocked,
 		setIsLocked,

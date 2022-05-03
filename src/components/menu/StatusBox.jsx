@@ -3,14 +3,11 @@ import { IoMdVolumeHigh } from 'react-icons/io';
 import { IoCaretForward, IoCaretDown } from 'react-icons/io5';
 import { VscDebugDisconnect } from 'react-icons/vsc';
 import { MdSettings, MdLock, MdPowerSettingsNew } from 'react-icons/md';
-import { Battery, Sound } from '..';
-import { AppContext } from '../../context/AppProvider';
-import {
-	calculateBatteryRemainingTime,
-	calculateBatteryToFullTime,
-} from '../../utils/calculateTime';
+import { Battery, Sound } from '../';
+import { calculateBatteryRemainingTime, calculateBatteryToFullTime } from '../../utils';
 import { useSelector } from 'react-redux';
-import { selectBatteryLevel, selectColorset, selectIsCharging } from '../../app/settingsSlice';
+import { selectBatteryLevel, selectIsCharging, selectColorset } from '../../app/settingsSlice';
+import { AppContext } from '../../context/AppProvider';
 
 function StatusItem({ open, disabled, onClick, children }) {
 	const { bgImage, bgImageHover } = useSelector(selectColorset);

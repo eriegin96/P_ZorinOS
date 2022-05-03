@@ -35,10 +35,10 @@ export default function App() {
 					{/* <Sidebar /> */}
 					<Window />
 					<WindowContextMenu />
-					<Modal />
 					{/* <DraggableApp /> */}
 				</div>
 			)}
+			<Modal />
 		</div>
 	);
 }

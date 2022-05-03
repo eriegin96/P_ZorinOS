@@ -7,7 +7,7 @@ import logo from '../assets/images/logo.svg';
 import { AppContext } from '../context/AppProvider';
 import Button from './common/Button';
 import Input from './common/Input';
-import StatusBar from './StatusBar';
+import StatusBar from './layout/StatusBar';
 
 export default function LockScreen() {
 	const { setIsLocked, currentTime } = useContext(AppContext);

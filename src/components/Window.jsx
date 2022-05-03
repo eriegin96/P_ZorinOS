@@ -2,11 +2,20 @@ import React, { useContext, useRef, useState } from 'react';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { useDispatch, useSelector } from 'react-redux';
-import { closeApp, openApp, selectRunningApps } from '../app/runningAppsSlice';
+import {
+	changeAppPosition,
+	closeApp,
+	maximizeApp,
+	minimizeApp,
+	normalizeApp,
+	openApp,
+	selectRunningApps,
+} from '../app/runningAppsSlice';
 import { selectIsWindowGrid } from '../app/settingsSlice';
 import { APP_LIST } from '../constants/apps';
 import { AppContext } from '../context/AppProvider';
 import { WindowIconButton, DraggableWindowItem } from '.';
+import AppWindow from './app/AppWindow';
 
 export default function Window() {
 	const dispatch = useDispatch();
@@ -34,22 +43,48 @@ export default function Window() {
 	};
 
 	const handleStartDraggingAppWindow = (index) => {
-		const newZIndex = 10 + runningApps.length - 1;
+		const newZIndex = 10 + runningApps.filter((a) => a.isOpen).length - 1;
 
 		appRefs.current.map((a) => {
 			const eachAppZIndex = parseInt(a?.style?.zIndex);
-			if (eachAppZIndex > parseInt(appRefs?.current[index]?.style?.zIndex))
+			if (eachAppZIndex >= parseInt(appRefs?.current[index]?.style?.zIndex))
 				a.style.zIndex = (eachAppZIndex - 1).toString();
 		});
 
 		appRefs.current[index].style.zIndex = newZIndex.toString();
 	};
 
+	const handleStopDraggingAppWindow = (e, app) => {
+		if (app.isNormal) {
+			if (e.target.classList.contains('handle')) {
+				dispatch(
+					changeAppPosition({
+						app,
+						position: {
+							x: e.clientX - e.offsetX,
+							y: e.clientY - e.offsetY,
+						},
+					})
+				);
+			} else {
+				dispatch(
+					changeAppPosition({
+						app,
+						position: {
+							x: e.clientX - e.offsetX - e.target.offsetLeft,
+							y: e.clientY - e.offsetY - e.target.offsetTop,
+						},
+					})
+				);
+			}
+		}
+	};
+
 	return (
 		<DndProvider backend={HTML5Backend}>
 			<div
 				id='window'
-				className='relative overflow-hidden p-1 grow text-white grid grid-cols-16 grid-rows-7 grid-flow-col'
+				className='relative overflow-hidden grow text-white grid grid-cols-16 grid-rows-7 grid-flow-col'
 				onClick={() => setContextMenuOpen(false)}
 			>
 				{/* Icons */}
@@ -74,7 +109,7 @@ export default function Window() {
 					) : (
 						<DraggableWindowItem key={app.name} onStart={() => handleStartDraggingIcon(index)}>
 							<button
-								className='handle justify-self-center py-1 px-2 flex flex-col items-center rounded-md cursor-default WindowIconButton Transition-colors'
+								className='handle justify-self-center py-1 px-2 flex flex-col items-center rounded-md cursor-default WindowIconButton TransitionColor'
 								ref={(el) => {
 									iconRefs.current[index] = el;
 								}}
@@ -93,24 +128,34 @@ export default function Window() {
 				})}
 
 				{/* Opening window */}
-				{runningApps.map((app, index) => (
-					<DraggableWindowItem
-						key={'app-' + app.name}
-						onStart={() => handleStartDraggingAppWindow(index)}
-					>
-						<div
-							className='handle absolute left-1/2 top-1/2 text-black w-20 h-10 bg-white border-2 border-red-500'
-							style={{ zIndex: 10 + index }}
-							ref={(el) => {
-								appRefs.current[index] = el;
-							}}
-							onClick={() => handleStartDraggingAppWindow(index)}
-							onDoubleClick={() => dispatch(closeApp(app))}
+				{runningApps
+					.filter((app) => app.isOpen)
+					.map((app, index) => (
+						<DraggableWindowItem
+							key={'app-' + app.name}
+							position={app.position}
+							onStart={() => handleStartDraggingAppWindow(index)}
+							onStop={(e) => handleStopDraggingAppWindow(e, app)}
 						>
-							{app.title}
-						</div>
-					</DraggableWindowItem>
-				))}
+							<div
+								ref={(el) => {
+									appRefs.current[index] = el;
+								}}
+								className={`absolute ${app.isMaximized ? 'w-full h-full z-10' : ''}`}
+								style={{ zIndex: 10 + index }}
+							>
+								<AppWindow
+									app={app}
+									index={index}
+									onClick={() => handleStartDraggingAppWindow(index)}
+									handleNormalize={() => dispatch(normalizeApp(app))}
+									handleMinimize={() => dispatch(minimizeApp(app))}
+									handleMaximize={() => dispatch(maximizeApp(app))}
+									handleClose={() => dispatch(closeApp(app))}
+								/>
+							</div>
+						</DraggableWindowItem>
+					))}
 			</div>
 		</DndProvider>
 	);

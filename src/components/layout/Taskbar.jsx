@@ -2,9 +2,9 @@ import React from 'react';
 import { BiWindows } from 'react-icons/bi';
 import { CgMenuGridO } from 'react-icons/cg';
 import { useSelector } from 'react-redux';
-import { selectLayout } from '../app/settingsSlice';
-import { StartMenuIcon } from '../assets/icons/Svg';
-import { TaskbarButton } from './common/Button';
+import { selectLayout } from '../../app/settingsSlice';
+import { StartMenuIcon } from '../../assets/icons/Svg';
+import { TaskbarButton } from '../common/Button';
 import StatusBar from './StatusBar';
 
 export default function Taskbar() {
