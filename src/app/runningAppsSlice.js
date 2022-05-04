@@ -1,26 +1,22 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { APP_LIST } from '../constants/apps';
 
 export const runningAppsSlice = createSlice({
 	name: 'runningApps',
 	initialState: {
-		normal: APP_LIST.map((app, index) => ({
-			...app,
-			isOpen: false,
-			isNormal: false,
-			isMaximized: false,
-			isMinimized: false,
-			normalPosition: { x: 100 + index * 5, y: 50 + index * 5 },
-			position: { x: 100 + index * 10, y: 50 + index * 10 },
-		})),
+		normal: [],
 	},
 	reducers: {
 		openApp: (state, action) => {
-			const selectedApp = state.normal.find((a) => a.name === action.payload.name);
-			if (selectedApp) {
-				selectedApp.isOpen = true;
-				selectedApp.isNormal = true;
-			}
+			state.normal.push({
+				...action.payload,
+				zIndex: state.normal.length,
+				isOpen: true,
+				isNormal: true,
+				isMaximized: false,
+				isMinimized: false,
+				normalPosition: { x: 100 + state.normal.length * 10, y: 50 + state.normal.length * 10 },
+				position: { x: 100 + state.normal.length * 10, y: 50 + state.normal.length * 10 },
+			});
 		},
 		maximizeApp: (state, action) => {
 			const selectedApp = state.normal.find((a) => a.name === action.payload.name);
@@ -35,8 +31,6 @@ export const runningAppsSlice = createSlice({
 			const selectedApp = state.normal.find((a) => a.name === action.payload.name);
 			if (selectedApp) {
 				selectedApp.isMinimized = true;
-				selectedApp.isMaximized = false;
-				selectedApp.isNormal = false;
 			}
 		},
 		normalizeApp: (state, action) => {
@@ -49,13 +43,8 @@ export const runningAppsSlice = createSlice({
 			}
 		},
 		closeApp: (state, action) => {
-			const selectedApp = state.normal.find((a) => a.name === action.payload.name);
-			if (selectedApp) {
-				selectedApp.isOpen = false;
-				selectedApp.isMaximized = false;
-				selectedApp.isNormal = false;
-				selectedApp.isMinimized = false;
-			}
+			const selectedAppIndex = state.normal.findIndex((a) => a.name === action.payload.name);
+			state.normal.splice(selectedAppIndex, 1);
 		},
 		changeAppPosition: (state, action) => {
 			const selectedApp = state.normal.find((a) => a.name === action.payload.app.name);
@@ -63,6 +52,15 @@ export const runningAppsSlice = createSlice({
 				if (selectedApp.isNormal) selectedApp.normalPosition = action.payload.position;
 				selectedApp.position = action.payload.position;
 			}
+		},
+		changeActiveApp: (state, action) => {
+			// state.normal.find((a) => a.name === action.payload.name).zIndex = state.normal.length - 1;
+			state.normal.forEach((a) => {
+				if (a.name === action.payload.name) a.zIndex = state.normal.length - 1;
+				if (a.zIndex > action.payload.zIndex) a.zIndex = a.zIndex - 1;
+			});
+			// .zIndex = state.normal.length - 1;
+			// state.normal.filter((a) => a.zIndex > action.payload.zIndex).forEach((a) => a.zIndex - 1);
 		},
 	},
 });
@@ -76,6 +74,7 @@ export const {
 	normalizeApp,
 	closeApp,
 	changeAppPosition,
+	changeActiveApp,
 } = runningAppsSlice.actions;
 
 export default runningAppsSlice.reducer;

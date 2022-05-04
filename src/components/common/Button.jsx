@@ -92,9 +92,9 @@ export function WindowIconButton({
 	);
 }
 
-export function TaskbarButton({ className = '', children, ...props }) {
+export function TaskbarButton({ className = '', children, onClick }) {
 	return (
-		<button className={`Button TaskbarButton ${className}`} {...props}>
+		<button className={`Button TaskbarButton ${className}`} onClick={onClick}>
 			{children}
 		</button>
 	);

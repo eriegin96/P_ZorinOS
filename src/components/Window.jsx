@@ -3,6 +3,7 @@ import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { useDispatch, useSelector } from 'react-redux';
 import {
+	changeActiveApp,
 	changeAppPosition,
 	closeApp,
 	maximizeApp,
@@ -42,7 +43,7 @@ export default function Window() {
 		iconRefs.current[index].style.zIndex = '1';
 	};
 
-	const handleStartDraggingAppWindow = (index) => {
+	const handleStartDraggingAppWindow = (app, index) => {
 		const newZIndex = 10 + runningApps.filter((a) => a.isOpen).length - 1;
 
 		appRefs.current.map((a) => {
@@ -52,6 +53,9 @@ export default function Window() {
 		});
 
 		appRefs.current[index].style.zIndex = newZIndex.toString();
+
+		// dispatch(changeActiveApp(app));
+		// appRefs.current.forEach((a) => (a.style.zIndex = a.zIndex.toString()));
 	};
 
 	const handleStopDraggingAppWindow = (e, app) => {
@@ -134,20 +138,22 @@ export default function Window() {
 						<DraggableWindowItem
 							key={'app-' + app.name}
 							position={app.position}
-							onStart={() => handleStartDraggingAppWindow(index)}
+							onStart={() => handleStartDraggingAppWindow(app, index)}
 							onStop={(e) => handleStopDraggingAppWindow(e, app)}
 						>
 							<div
 								ref={(el) => {
 									appRefs.current[index] = el;
 								}}
-								className={`absolute ${app.isMaximized ? 'w-full h-full z-10' : ''}`}
+								className={`absolute ${app.isMaximized ? 'w-full h-full' : ''} ${
+									app.isMinimized ? 'hidden' : ''
+								}`}
 								style={{ zIndex: 10 + index }}
 							>
 								<AppWindow
 									app={app}
 									index={index}
-									onClick={() => handleStartDraggingAppWindow(index)}
+									onClick={() => handleStartDraggingAppWindow(app, index)}
 									handleNormalize={() => dispatch(normalizeApp(app))}
 									handleMinimize={() => dispatch(minimizeApp(app))}
 									handleMaximize={() => dispatch(maximizeApp(app))}

@@ -29,7 +29,7 @@ export default function AppWindow(props) {
 				<span className='cancel absolute right-2 flex items-center gap-1'>
 					<HiMinusSm
 						className='w-6 h-6 p-1 rounded-full BgColorHover TransitionColor'
-						// onClick={handleMinimize}
+						onClick={handleMinimize}
 					/>
 					<BiExpandAlt
 						className='w-6 h-6 p-1.5 rounded-full BgColorHover TransitionColor'
