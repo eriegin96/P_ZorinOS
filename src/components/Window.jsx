@@ -43,19 +43,11 @@ export default function Window() {
 		iconRefs.current[index].style.zIndex = '1';
 	};
 
-	const handleStartDraggingAppWindow = (app, index) => {
-		const newZIndex = 10 + runningApps.filter((a) => a.isOpen).length - 1;
-
-		appRefs.current.map((a) => {
-			const eachAppZIndex = parseInt(a?.style?.zIndex);
-			if (eachAppZIndex >= parseInt(appRefs?.current[index]?.style?.zIndex))
-				a.style.zIndex = (eachAppZIndex - 1).toString();
+	const handleStartDraggingAppWindow = (app) => {
+		dispatch(changeActiveApp(app));
+		runningApps.forEach((a, index) => {
+			appRefs.current[index].style.zIndex = a.zIndex.toString();
 		});
-
-		appRefs.current[index].style.zIndex = newZIndex.toString();
-
-		// dispatch(changeActiveApp(app));
-		// appRefs.current.forEach((a) => (a.style.zIndex = a.zIndex.toString()));
 	};
 
 	const handleStopDraggingAppWindow = (e, app) => {
@@ -138,7 +130,7 @@ export default function Window() {
 						<DraggableWindowItem
 							key={'app-' + app.name}
 							position={app.position}
-							onStart={() => handleStartDraggingAppWindow(app, index)}
+							// onStart={() => handleStartDraggingAppWindow(app)}
 							onStop={(e) => handleStopDraggingAppWindow(e, app)}
 						>
 							<div
@@ -148,12 +140,12 @@ export default function Window() {
 								className={`absolute ${app.isMaximized ? 'w-full h-full' : ''} ${
 									app.isMinimized ? 'hidden' : ''
 								}`}
-								style={{ zIndex: 10 + index }}
+								style={{ zIndex: app.zIndex }}
+								onClick={() => handleStartDraggingAppWindow(app)}
 							>
 								<AppWindow
 									app={app}
 									index={index}
-									onClick={() => handleStartDraggingAppWindow(app, index)}
 									handleNormalize={() => dispatch(normalizeApp(app))}
 									handleMinimize={() => dispatch(minimizeApp(app))}
 									handleMaximize={() => dispatch(maximizeApp(app))}

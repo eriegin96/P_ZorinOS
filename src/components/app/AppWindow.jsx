@@ -21,7 +21,7 @@ export default function AppWindow(props) {
 				isMaximized ? '' : 'rounded-md'
 			} BgColor TextColor`}
 			ref={thisRef}
-			onClick={onClick}
+			// onClick={onClick}
 			onDoubleClick={handleClose}
 		>
 			<div className='handle relative py-1.5 Center'>

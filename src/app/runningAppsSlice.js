@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { APP_LIST } from '../constants/apps';
 
 export const runningAppsSlice = createSlice({
 	name: 'runningApps',
@@ -9,7 +10,8 @@ export const runningAppsSlice = createSlice({
 		openApp: (state, action) => {
 			state.normal.push({
 				...action.payload,
-				zIndex: state.normal.length,
+				zIndex: APP_LIST.length + state.normal.length,
+				isActive: false,
 				isOpen: true,
 				isNormal: true,
 				isMaximized: false,
@@ -54,13 +56,18 @@ export const runningAppsSlice = createSlice({
 			}
 		},
 		changeActiveApp: (state, action) => {
-			// state.normal.find((a) => a.name === action.payload.name).zIndex = state.normal.length - 1;
 			state.normal.forEach((a) => {
-				if (a.name === action.payload.name) a.zIndex = state.normal.length - 1;
-				if (a.zIndex > action.payload.zIndex) a.zIndex = a.zIndex - 1;
+				if (a.zIndex > action.payload.zIndex) {
+					a.zIndex = a.zIndex - 1;
+				}
+
+				if (a.name === action.payload.name) {
+					a.isActive = true;
+					a.zIndex = APP_LIST.length + state.normal.length - 1;
+				} else {
+					a.isActive = false;
+				}
 			});
-			// .zIndex = state.normal.length - 1;
-			// state.normal.filter((a) => a.zIndex > action.payload.zIndex).forEach((a) => a.zIndex - 1);
 		},
 	},
 });
