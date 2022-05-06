@@ -62,6 +62,9 @@ module.exports = {
 				7: 'repeat(7, minmax(0, 1fr))',
 				8: 'repeat(8, minmax(0, 1fr))',
 			},
+			spacing: {
+				'1/5': '20%',
+			},
 		},
 	},
 	plugins: [],

@@ -16,8 +16,8 @@ export const runningAppsSlice = createSlice({
 				isNormal: true,
 				isMaximized: false,
 				isMinimized: false,
-				normalPosition: { x: 100 + state.normal.length * 10, y: 50 + state.normal.length * 10 },
-				position: { x: 100 + state.normal.length * 10, y: 50 + state.normal.length * 10 },
+				normalPosition: { x: state.normal.length * 20, y: state.normal.length * 20 },
+				position: { x: state.normal.length * 20, y: state.normal.length * 20 },
 			});
 		},
 		maximizeApp: (state, action) => {

@@ -56,12 +56,12 @@ export default function Taskbar() {
 								alt={app.title}
 								className='relative h-6 w-6 pointer-events-none'
 							/>
-							<span className='absolute bottom-2 h-1 w-1 bg-blue-500 rounded-full'></span>
+							<span className='absolute bottom-2 h-1 w-1 bg-blue-500 rounded-full' />
 						</TaskbarButton>
 					))}
 			</div>
 			{layout === 'ubuntu' && <div className='px-2 py-1'>Sat Mar 26 9:37AM</div>}
-			<StatusBar fromRight fromBottom={layout === 'ubuntu'} position='mr-1' />
+			<StatusBar fromRight fromBottom={layout !== 'ubuntu'} position='mr-1' />
 		</div>
 	);
 }

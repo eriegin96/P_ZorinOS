@@ -137,7 +137,7 @@ export default function Window() {
 								ref={(el) => {
 									appRefs.current[index] = el;
 								}}
-								className={`absolute ${app.isMaximized ? 'w-full h-full' : ''} ${
+								className={`absolute left-1/4 top-1/5 ${app.isMaximized ? 'w-full h-full' : ''} ${
 									app.isMinimized ? 'hidden' : ''
 								}`}
 								style={{ zIndex: app.zIndex }}
