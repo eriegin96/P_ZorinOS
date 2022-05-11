@@ -22,7 +22,7 @@ export default function AppWindow(props) {
 			} BgColor TextColor`}
 			ref={thisRef}
 			// onClick={onClick}
-			onDoubleClick={handleClose}
+			// onDoubleClick={handleClose}
 		>
 			<div className='handle relative py-1.5 Center'>
 				<span>{title}</span>

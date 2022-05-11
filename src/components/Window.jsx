@@ -130,14 +130,13 @@ export default function Window() {
 						<DraggableWindowItem
 							key={'app-' + app.name}
 							position={app.position}
-							// onStart={() => handleStartDraggingAppWindow(app)}
 							onStop={(e) => handleStopDraggingAppWindow(e, app)}
 						>
 							<div
 								ref={(el) => {
 									appRefs.current[index] = el;
 								}}
-								className={`absolute left-1/4 top-1/5 ${app.isMaximized ? 'w-full h-full' : ''} ${
+								className={`absolute ${app.isMaximized ? 'w-full h-full' : ''} ${
 									app.isMinimized ? 'hidden' : ''
 								}`}
 								style={{ zIndex: app.zIndex }}

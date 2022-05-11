@@ -16,8 +16,14 @@ export const runningAppsSlice = createSlice({
 				isNormal: true,
 				isMaximized: false,
 				isMinimized: false,
-				normalPosition: { x: state.normal.length * 20, y: state.normal.length * 20 },
-				position: { x: state.normal.length * 20, y: state.normal.length * 20 },
+				normalPosition: {
+					x: document.body.getBoundingClientRect().width / 4 + state.normal.length * 20,
+					y: document.body.getBoundingClientRect().height / 5 + state.normal.length * 20,
+				},
+				position: {
+					x: document.body.getBoundingClientRect().width / 4 + state.normal.length * 20,
+					y: document.body.getBoundingClientRect().height / 5 + state.normal.length * 20,
+				},
 			});
 		},
 		maximizeApp: (state, action) => {
@@ -50,9 +56,14 @@ export const runningAppsSlice = createSlice({
 		},
 		changeAppPosition: (state, action) => {
 			const selectedApp = state.normal.find((a) => a.name === action.payload.app.name);
-			if (selectedApp) {
-				if (selectedApp.isNormal) selectedApp.normalPosition = action.payload.position;
-				selectedApp.position = action.payload.position;
+			if (selectedApp.isNormal) {
+				if (
+					Math.abs(action.payload.position.x - selectedApp.position.x) > 1 ||
+					Math.abs(action.payload.position.y - selectedApp.position.y) > 1
+				) {
+					selectedApp.normalPosition = action.payload.position;
+					selectedApp.position = action.payload.position;
+				}
 			}
 		},
 		changeActiveApp: (state, action) => {
