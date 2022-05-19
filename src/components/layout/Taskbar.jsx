@@ -32,7 +32,7 @@ export default function Taskbar() {
 
 	return (
 		<div
-			className={`w-full flex justify-between items-center shadow-md text-sm BgTransparentColor TextColor ${
+			className={`w-full flex justify-between items-center shadow-md text-sm BgTransparentColor TextColor z-10 ${
 				layout === 'ubuntu' ? '' : 'h-12'
 			}`}
 		>

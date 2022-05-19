@@ -23,7 +23,7 @@ export default function Window() {
 	const isWindowGrid = useSelector(selectIsWindowGrid);
 	const runningApps = useSelector(selectRunningApps);
 	const [icons, setIcons] = useState(APP_LIST);
-	const { setContextMenuOpen } = useContext(AppContext);
+	const { setContextMenuOpen, setMenuType } = useContext(AppContext);
 	const iconRefs = useRef([]);
 	const appRefs = useRef([]);
 
@@ -76,12 +76,17 @@ export default function Window() {
 		}
 	};
 
+	const handleWindowClick = () => {
+		setContextMenuOpen(false);
+		setMenuType(null);
+	};
+
 	return (
 		<DndProvider backend={HTML5Backend}>
 			<div
 				id='window'
 				className='relative overflow-hidden grow text-white grid grid-cols-16 grid-rows-7 grid-flow-col'
-				onClick={() => setContextMenuOpen(false)}
+				onClick={handleWindowClick}
 			>
 				{/* Icons */}
 				{icons.map((app, index) => {

@@ -6,7 +6,6 @@ import { BiExpandAlt } from 'react-icons/bi';
 export default function AppWindow(props) {
 	const {
 		app: { title, isMaximized },
-		thisRef,
 		onClick,
 		handleMinimize,
 		handleMaximize,
@@ -17,10 +16,10 @@ export default function AppWindow(props) {
 
 	return (
 		<div
-			className={`min-w-[500px] w-full h-full text-sm ShadowColor ${
+			className={`min-w-[260px] min-h-[100px] w-full h-full text-sm resize overflow-hidden ${
 				isMaximized ? '' : 'rounded-md'
-			} BgColor TextColor`}
-			ref={thisRef}
+			} BgColor TextColor ShadowColor`}
+			// ref={thisRef}
 			// onClick={onClick}
 			// onDoubleClick={handleClose}
 		>
