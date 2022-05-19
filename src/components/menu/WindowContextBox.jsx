@@ -12,7 +12,7 @@ import {
 	selectMainColor,
 	toggleDarkTheme,
 	toggleWindowGrid,
-} from '../../app/settingsSlice';
+} from '~/app/settingsSlice';
 
 const layouts = [
 	{ name: 'window', title: 'Window' },

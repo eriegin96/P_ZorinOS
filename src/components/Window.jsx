@@ -11,10 +11,10 @@ import {
 	normalizeApp,
 	openApp,
 	selectRunningApps,
-} from '../app/runningAppsSlice';
-import { selectIsWindowGrid } from '../app/settingsSlice';
-import { APP_LIST } from '../constants/apps';
-import { AppContext } from '../context/AppProvider';
+} from '~/app/runningAppsSlice';
+import { selectIsWindowGrid } from '~/app/settingsSlice';
+import { APP_LIST } from '~/constants/apps';
+import { AppContext } from '~/context/AppProvider';
 import { WindowIconButton, DraggableWindowItem } from '.';
 import AppWindow from './app/AppWindow';
 

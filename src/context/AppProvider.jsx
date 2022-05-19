@@ -1,8 +1,8 @@
 import React, { createContext, useState, useEffect, useLayoutEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { selectDarkTheme } from '../app/settingsSlice';
-import { BACKGROUND_LIST } from '../constants';
-import { changeBackground } from '../utils/changeBackground';
+import { selectDarkTheme } from '~/app/settingsSlice';
+import { BACKGROUND_LIST } from '~/constants';
+import { changeBackground } from '~/utils/changeBackground';
 
 export const AppContext = createContext();
 

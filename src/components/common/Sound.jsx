@@ -1,12 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import ReactSlider from 'react-slider';
-import {
-	selectVolume,
-	changeVolume,
-	selectMainColor,
-	selectColorset,
-} from '../../app/settingsSlice';
+import { selectVolume, changeVolume, selectColorset } from '~/app/settingsSlice';
 
 export default function Sound({ className }) {
 	const volume = useSelector(selectVolume);

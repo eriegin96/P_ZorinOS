@@ -3,7 +3,7 @@ import { AppContext } from '../../context/AppProvider';
 import { StatusBox } from '..';
 
 export default function Menu({ position, fromBottom, fromRight }) {
-	const { menuType, setMenuType } = useContext(AppContext);
+	const { menuType } = useContext(AppContext);
 
 	return (
 		<>

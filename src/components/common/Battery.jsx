@@ -21,7 +21,7 @@ import {
 	selectBatteryLevel,
 	selectIsCharging,
 	toggleCharging,
-} from '../../app/settingsSlice';
+} from '~/app/settingsSlice';
 
 export default function Battery({ className }) {
 	const batteryLevel = useSelector(selectBatteryLevel);

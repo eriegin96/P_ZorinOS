@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { VscDebugDisconnect } from 'react-icons/vsc';
 import { IoMdVolumeHigh } from 'react-icons/io';
 import { IoCaretDown } from 'react-icons/io5';
-import { AppContext } from '../../context/AppProvider';
+import { AppContext } from '~/context/AppProvider';
 import Battery from '../common/Battery';
 import Menu from '../menu/Menu';
 

@@ -1,7 +1,6 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
-import { selectColorset } from '../../app/settingsSlice';
-import { AppContext } from '../../context/AppProvider';
+import { selectColorset } from '~/app/settingsSlice';
 
 export default function Input(props) {
 	const {

@@ -13,7 +13,7 @@ import {
 	vscodeImg,
 	youtubeImg,
 	zorinImg,
-} from '../assets/images/apps';
+} from '~/assets/images/apps';
 
 export const APP_LIST = [
 	{ id: 1, title: 'My Computer', name: 'pc', icon: pcImg },
